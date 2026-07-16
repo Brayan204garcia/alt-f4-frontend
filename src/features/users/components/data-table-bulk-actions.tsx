@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { type Table } from '@tanstack/react-table'
-import { Trash2, UserX, UserCheck, Mail } from 'lucide-react'
+import { CircleCheck, ShieldAlert, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 import { Button } from '@/components/ui/button'
 import {
   Tooltip,
@@ -21,53 +22,47 @@ export function DataTableBulkActions<TData>({
   table,
 }: DataTableBulkActionsProps<TData>) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [pendingStatus, setPendingStatus] = useState<
+    'consistente' | 'inconsistente' | null
+  >(null)
   const selectedRows = table.getFilteredSelectedRowModel().rows
 
-  const handleBulkStatusChange = (status: 'active' | 'inactive') => {
+  const handleBulkStatusChange = (status: 'consistente' | 'inconsistente') => {
     const selectedUsers = selectedRows.map((row) => row.original as User)
     toast.promise(sleep(2000), {
-      loading: `${status === 'active' ? 'Activating' : 'Deactivating'} users...`,
+      loading:
+        status === 'consistente'
+          ? 'Marcando auditorias como consistentes...'
+          : 'Marcando auditorias como inconsistentes...',
       success: () => {
         table.resetRowSelection()
-        return `${status === 'active' ? 'Activated' : 'Deactivated'} ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
+        return `${selectedUsers.length} auditoria${selectedUsers.length > 1 ? 's' : ''} actualizada${selectedUsers.length > 1 ? 's' : ''}`
       },
-      error: `Error ${status === 'active' ? 'activating' : 'deactivating'} users`,
+      error: 'Error actualizando auditorias',
     })
     table.resetRowSelection()
-  }
-
-  const handleBulkInvite = () => {
-    const selectedUsers = selectedRows.map((row) => row.original as User)
-    toast.promise(sleep(2000), {
-      loading: 'Inviting users...',
-      success: () => {
-        table.resetRowSelection()
-        return `Invited ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
-      },
-      error: 'Error inviting users',
-    })
-    table.resetRowSelection()
+    setPendingStatus(null)
   }
 
   return (
     <>
-      <BulkActionsToolbar table={table} entityName='user'>
+      <BulkActionsToolbar table={table} entityName='auditoria'>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='outline'
               size='icon'
-              onClick={handleBulkInvite}
+              onClick={() => setPendingStatus('consistente')}
               className='size-8'
-              aria-label='Invite selected users'
-              title='Invite selected users'
+              aria-label='Marcar como consistente'
+              title='Marcar como consistente'
             >
-              <Mail />
-              <span className='sr-only'>Invite selected users</span>
+              <CircleCheck />
+              <span className='sr-only'>Marcar como consistente</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Invite selected users</p>
+            <p>Marcar como consistente</p>
           </TooltipContent>
         </Tooltip>
 
@@ -76,36 +71,17 @@ export function DataTableBulkActions<TData>({
             <Button
               variant='outline'
               size='icon'
-              onClick={() => handleBulkStatusChange('active')}
+              onClick={() => setPendingStatus('inconsistente')}
               className='size-8'
-              aria-label='Activate selected users'
-              title='Activate selected users'
+              aria-label='Marcar como inconsistente'
+              title='Marcar como inconsistente'
             >
-              <UserCheck />
-              <span className='sr-only'>Activate selected users</span>
+              <ShieldAlert />
+              <span className='sr-only'>Marcar como inconsistente</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Activate selected users</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='outline'
-              size='icon'
-              onClick={() => handleBulkStatusChange('inactive')}
-              className='size-8'
-              aria-label='Deactivate selected users'
-              title='Deactivate selected users'
-            >
-              <UserX />
-              <span className='sr-only'>Deactivate selected users</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Deactivate selected users</p>
+            <p>Marcar como inconsistente</p>
           </TooltipContent>
         </Tooltip>
 
@@ -116,15 +92,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-              aria-label='Delete selected users'
-              title='Delete selected users'
+              aria-label='Eliminar auditorias seleccionadas'
+              title='Eliminar auditorias seleccionadas'
             >
               <Trash2 />
-              <span className='sr-only'>Delete selected users</span>
+              <span className='sr-only'>Eliminar auditorias seleccionadas</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Delete selected users</p>
+            <p>Eliminar auditorias seleccionadas</p>
           </TooltipContent>
         </Tooltip>
       </BulkActionsToolbar>
@@ -133,6 +109,27 @@ export function DataTableBulkActions<TData>({
         table={table}
         open={showDeleteConfirm}
         onOpenChange={setShowDeleteConfirm}
+      />
+
+      <ConfirmDialog
+        open={!!pendingStatus}
+        onOpenChange={(open) => {
+          if (!open) setPendingStatus(null)
+        }}
+        title='Advertencia'
+        desc={
+          <p>
+            Vas a cambiar el estado de {selectedRows.length} auditoria
+            {selectedRows.length > 1 ? 's' : ''} a{' '}
+            <span className='font-medium'>{pendingStatus}</span>. Esta accion
+            actualizara el resultado visible del radicado.
+          </p>
+        }
+        cancelBtnText='Cancelar'
+        confirmText='Continuar'
+        handleConfirm={() => {
+          if (pendingStatus) handleBulkStatusChange(pendingStatus)
+        }}
       />
     </>
   )

@@ -16,6 +16,7 @@ import {
   UserCog,
   UserX,
   Users,
+  KeyRound,
   MessagesSquare,
   ShieldCheck,
   AudioWaveform,
@@ -33,9 +34,9 @@ export const sidebarData: SidebarData = {
   },
   teams: [
     {
-      name: 'Shadcn Admin',
+      name: 'Auditor Medico IA',
       logo: Command,
-      plan: 'Vite + ShadcnUI',
+      plan: 'ALT-F4-SIC-2026',
     },
     {
       name: 'Acme Inc',
@@ -63,19 +64,19 @@ export const sidebarData: SidebarData = {
           icon: ListTodo,
         },
         {
-          title: 'Apps',
+          title: 'Normativas',
           url: '/apps',
           icon: Package,
         },
         {
-          title: 'Chats',
+          title: 'Auditor IA',
           url: '/chats',
-          badge: '3',
+          badge: 'ML',
           icon: MessagesSquare,
         },
         {
-          title: 'Users',
-          url: '/users',
+          title: 'Auditorias Api',
+          url: '/radicados-api',
           icon: Users,
         },
         {
@@ -147,7 +148,7 @@ export const sidebarData: SidebarData = {
               icon: FileX,
             },
             {
-              title: 'Internal Server Error',
+              title: 'Metricas Modelo',
               url: '/errors/internal-server-error',
               icon: ServerOff,
             },
@@ -191,6 +192,11 @@ export const sidebarData: SidebarData = {
               title: 'Display',
               url: '/settings/display',
               icon: Monitor,
+            },
+            {
+              title: 'API Key',
+              url: '/settings/api-key',
+              icon: KeyRound,
             },
           ],
         },

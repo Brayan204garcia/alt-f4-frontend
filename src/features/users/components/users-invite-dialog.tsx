@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { MailPlus, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { showSubmittedData } from '@/lib/show-submitted-data'
 import { Button } from '@/components/ui/button'
 import {
@@ -23,16 +23,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { SelectDropdown } from '@/components/select-dropdown'
-import { roles } from '../data/data'
 
 const formSchema = z.object({
-  email: z.email({
-    error: (iss) =>
-      iss.input === '' ? 'Please enter an email to invite.' : undefined,
-  }),
-  role: z.string().min(1, 'Role is required.'),
-  desc: z.string().optional(),
+  endpoint: z.string().min(1, 'El endpoint es requerido.'),
+  payload: z.string().min(1, 'El payload es requerido.'),
 })
 
 type UserInviteForm = z.infer<typeof formSchema>
@@ -48,7 +42,17 @@ export function UsersInviteDialog({
 }: UserInviteDialogProps) {
   const form = useForm<UserInviteForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', role: '', desc: '' },
+    defaultValues: {
+      endpoint: '/api/auditorias',
+      payload: `{
+  "radicado": "RAD-2026-0001",
+  "paciente": "Maria Gomez",
+  "eps": "Sura EPS",
+  "fecha": "2026-07-15",
+  "historiaClinica": "...",
+  "prefactura": "..."
+}`,
+    },
   })
 
   const onSubmit = (values: UserInviteForm) => {
@@ -68,11 +72,11 @@ export function UsersInviteDialog({
       <DialogContent className='sm:max-w-md'>
         <DialogHeader className='text-start'>
           <DialogTitle className='flex items-center gap-2'>
-            <MailPlus /> Invite User
+            <Send /> Probar API
           </DialogTitle>
           <DialogDescription>
-            Invite new user to join your team by sending them an email
-            invitation. Assign a role to define their access level.
+            Simula el envio de una historia clinica y prefactura hacia nuestra
+            API para validar la integracion.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -83,14 +87,13 @@ export function UsersInviteDialog({
           >
             <FormField
               control={form.control}
-              name='email'
+              name='endpoint'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Endpoint</FormLabel>
                   <FormControl>
                     <Input
-                      type='email'
-                      placeholder='eg: john.doe@gmail.com'
+                      placeholder='/api/auditorias'
                       {...field}
                     />
                   </FormControl>
@@ -100,33 +103,14 @@ export function UsersInviteDialog({
             />
             <FormField
               control={form.control}
-              name='role'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <SelectDropdown
-                    defaultValue={field.value}
-                    onValueChange={field.onChange}
-                    placeholder='Select a role'
-                    items={roles.map(({ label, value }) => ({
-                      label,
-                      value,
-                    }))}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='desc'
+              name='payload'
               render={({ field }) => (
                 <FormItem className=''>
-                  <FormLabel>Description (optional)</FormLabel>
+                  <FormLabel>Payload JSON</FormLabel>
                   <FormControl>
                     <Textarea
-                      className='resize-none'
-                      placeholder='Add a personal note to your invitation (optional)'
+                      className='min-h-52 resize-none font-mono text-xs'
+                      placeholder='Pega aqui el JSON de prueba'
                       {...field}
                     />
                   </FormControl>
@@ -138,10 +122,10 @@ export function UsersInviteDialog({
         </Form>
         <DialogFooter className='gap-y-2'>
           <DialogClose asChild>
-            <Button variant='outline'>Cancel</Button>
+            <Button variant='outline'>Cancelar</Button>
           </DialogClose>
           <Button type='submit' form='user-invite-form'>
-            Invite <Send />
+            Simular envio <Send />
           </Button>
         </DialogFooter>
       </DialogContent>

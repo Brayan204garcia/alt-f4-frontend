@@ -5,8 +5,8 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { ForbiddenError } from '@/features/errors/forbidden'
-import { GeneralError } from '@/features/errors/general-error'
 import { MaintenanceError } from '@/features/errors/maintenance-error'
+import { ModelMetrics } from '@/features/errors/model-metrics'
 import { NotFoundError } from '@/features/errors/not-found-error'
 import { UnauthorisedError } from '@/features/errors/unauthorized-error'
 
@@ -22,7 +22,7 @@ function RouteComponent() {
     unauthorized: UnauthorisedError,
     forbidden: ForbiddenError,
     'not-found': NotFoundError,
-    'internal-server-error': GeneralError,
+    'internal-server-error': ModelMetrics,
     'maintenance-error': MaintenanceError,
   }
   const ErrorComponent = errorMap[error] || NotFoundError

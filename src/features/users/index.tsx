@@ -11,7 +11,7 @@ import { UsersProvider } from './components/users-provider'
 import { UsersTable } from './components/users-table'
 import { users } from './data/users'
 
-const route = getRouteApi('/_authenticated/users/')
+const route = getRouteApi('/_authenticated/radicados-api/')
 
 export function Users() {
   const search = route.useSearch()
@@ -29,9 +29,9 @@ export function Users() {
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>User List</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>Auditorias Api</h2>
             <p className='text-muted-foreground'>
-              Manage your users and their roles here.
+              Gestiona los analisis recibidos y su estado de auditoria.
             </p>
           </div>
           <UsersPrimaryButtons />

@@ -1,71 +1,280 @@
 import { useState } from 'react'
-import { Fragment } from 'react/jsx-runtime'
-import { format } from 'date-fns'
 import {
-  ArrowLeft,
-  MoreVertical,
-  Edit,
-  Paperclip,
-  Phone,
-  ImagePlus,
-  Plus,
-  Search as SearchIcon,
-  Send,
-  Video,
-  MessagesSquare,
+  AlertTriangle,
+  BrainCircuit,
+  ClipboardCheck,
+  FileSearch,
+  FileText,
+  RefreshCcw,
+  ShieldAlert,
+  Sparkles,
 } from 'lucide-react'
-import { cn, getDisplayNameInitials } from '@/lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { cn } from '@/lib/utils'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Textarea } from '@/components/ui/textarea'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { NewChat } from './components/new-chat'
-import { type ChatUser, type Convo } from './data/chat-types'
-// Fake Data
-import { conversations } from './data/convo.json'
+
+type DetectionLevel = 'Alta' | 'Media' | 'Baja'
+
+type Detection = {
+  id: string
+  title: string
+  level: DetectionLevel
+  probability: number
+  category: string
+  evidence: string
+  recommendation: string
+}
+
+type AuditRule = {
+  id: string
+  title: string
+  category: string
+  level: DetectionLevel
+  probability: number
+  invoiceTerms: string[]
+  clinicalTerms: string[]
+  missingEvidence: string
+  recommendation: string
+}
+
+const sampleClinicalRecord = `Paciente femenino de 62 anos.
+Ingreso: 10/07/2026. Egreso: 12/07/2026.
+Diagnostico: neumonia adquirida en comunidad.
+Evolucion: manejo en hospitalizacion general, oxigeno por canula nasal, ceftriaxona 1 g cada 24 horas y terapia respiratoria.
+Soportes: hemograma, radiografia de torax y valoracion por medicina interna.
+No se documentan servicios de alta complejidad, estudios avanzados, intervenciones quirurgicas ni terapias especiales.`
+
+const samplePreinvoice = `Prefactura ALT-F4-SIC.
+Estancia hospitalaria general x 2 dias.
+Unidad de cuidados intensivos UCI x 1 dia.
+Ceftriaxona 1 g x 3 dosis.
+Terapia respiratoria x 2 sesiones.
+Resonancia magnetica de torax.
+Medicamento alto costo: pembrolizumab 200 mg.
+Honorarios cirugia menor.
+Interconsulta cardiologia.`
+
+const auditRules: AuditRule[] = [
+  {
+    id: 'uci-without-support',
+    title: 'Estancia UCI facturada sin soporte clinico',
+    category: 'Pertinencia',
+    level: 'Alta',
+    probability: 92,
+    invoiceTerms: ['uci', 'unidad de cuidados intensivos'],
+    clinicalTerms: ['uci', 'unidad de cuidados intensivos', 'cuidado intensivo'],
+    missingEvidence:
+      'La prefactura incluye UCI, pero la historia no documenta estancia o indicacion de cuidado intensivo.',
+    recommendation:
+      'Solicitar soporte de ingreso, evolucion y orden medica de UCI antes de autorizar el item.',
+  },
+  {
+    id: 'high-cost-drug',
+    title: 'Medicamento de alto costo sin trazabilidad completa',
+    category: 'Medicamentos',
+    level: 'Alta',
+    probability: 88,
+    invoiceTerms: ['pembrolizumab', 'rituximab', 'alto costo', 'infliximab'],
+    clinicalTerms: [
+      'pembrolizumab',
+      'rituximab',
+      'infliximab',
+      'administrado',
+      'orden medica',
+    ],
+    missingEvidence:
+      'Se encontro medicamento de alto costo en prefactura sin registro equivalente en la historia clinica.',
+    recommendation:
+      'Validar orden, administracion, lote, dosis y pertinencia frente al diagnostico.',
+  },
+  {
+    id: 'procedure-not-found',
+    title: 'Procedimiento facturado no encontrado en historia',
+    category: 'Soportes',
+    level: 'Alta',
+    probability: 84,
+    invoiceTerms: [
+      'cirugia',
+      'procedimiento',
+      'resonancia',
+      'tomografia',
+      'endoscopia',
+    ],
+    clinicalTerms: [
+      'cirugia',
+      'procedimiento',
+      'resonancia',
+      'tomografia',
+      'endoscopia',
+      'reporte',
+    ],
+    missingEvidence:
+      'La prefactura registra procedimiento o ayuda diagnostica sin reporte clinico asociado.',
+    recommendation:
+      'Cruzar con nota operatoria, informe diagnostico y autorizacion del servicio.',
+  },
+  {
+    id: 'therapy-overuse',
+    title: 'Cantidad de terapias superior a la evidencia clinica',
+    category: 'Frecuencia',
+    level: 'Media',
+    probability: 73,
+    invoiceTerms: [
+      'terapia respiratoria x 3',
+      'terapia respiratoria x 4',
+      'terapia fisica x 3',
+      'terapia fisica x 4',
+    ],
+    clinicalTerms: [
+      'terapia respiratoria x 3',
+      'terapia respiratoria x 4',
+      'terapia fisica x 3',
+      'terapia fisica x 4',
+    ],
+    missingEvidence:
+      'La cantidad facturada supera lo que aparece descrito como sesiones soportadas.',
+    recommendation:
+      'Comparar sesiones diarias firmadas contra cantidad cobrada y ajustar excedentes.',
+  },
+  {
+    id: 'diagnosis-mismatch',
+    title: 'Servicio facturado con baja relacion diagnostica',
+    category: 'Coherencia',
+    level: 'Media',
+    probability: 69,
+    invoiceTerms: ['cardiologia', 'neurologia', 'oncologia', 'traumatologia'],
+    clinicalTerms: ['cardiologia', 'neurologia', 'oncologia', 'traumatologia'],
+    missingEvidence:
+      'El servicio facturado no se conecta claramente con el diagnostico principal documentado.',
+    recommendation:
+      'Revisar interconsulta, justificacion medica y autorizacion por especialidad.',
+  },
+]
+
+function normalizeText(value: string) {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+}
+
+function hasAnyTerm(source: string, terms: string[]) {
+  return terms.some((term) => source.includes(normalizeText(term)))
+}
+
+function calculateProbability(
+  rule: AuditRule,
+  clinicalText: string,
+  invoiceText: string
+) {
+  const invoiceDensity = rule.invoiceTerms.filter((term) =>
+    invoiceText.includes(normalizeText(term))
+  ).length
+  const clinicalDensity = rule.clinicalTerms.filter((term) =>
+    clinicalText.includes(normalizeText(term))
+  ).length
+  const score = rule.probability + invoiceDensity * 3 - clinicalDensity * 5
+
+  return Math.min(97, Math.max(51, score))
+}
+
+function getLevelStyles(level: DetectionLevel) {
+  if (level === 'Alta') {
+    return {
+      badge:
+        'border-red-200 bg-red-50 text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300',
+      bar: 'bg-red-500',
+    }
+  }
+
+  if (level === 'Media') {
+    return {
+      badge:
+        'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-300',
+      bar: 'bg-amber-500',
+    }
+  }
+
+  return {
+    badge:
+      'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300',
+    bar: 'bg-emerald-500',
+  }
+}
+
+function runAudit(clinicalRecord: string, preinvoice: string): Detection[] {
+  const clinicalText = normalizeText(clinicalRecord)
+  const invoiceText = normalizeText(preinvoice)
+
+  return auditRules
+    .filter((rule) => {
+      const appearsInInvoice = hasAnyTerm(invoiceText, rule.invoiceTerms)
+      const appearsInClinicalRecord = hasAnyTerm(
+        clinicalText,
+        rule.clinicalTerms
+      )
+
+      return appearsInInvoice && !appearsInClinicalRecord
+    })
+    .map((rule) => ({
+      id: rule.id,
+      title: rule.title,
+      level: rule.level,
+      probability: calculateProbability(rule, clinicalText, invoiceText),
+      category: rule.category,
+      evidence: rule.missingEvidence,
+      recommendation: rule.recommendation,
+    }))
+    .sort((a, b) => b.probability - a.probability)
+}
 
 export function Chats() {
-  const [search, setSearch] = useState('')
-  const [selectedUser, setSelectedUser] = useState<ChatUser | null>(null)
-  const [mobileSelectedUser, setMobileSelectedUser] = useState<ChatUser | null>(
-    null
-  )
-  const [createConversationDialogOpened, setCreateConversationDialog] =
-    useState(false)
+  const [clinicalRecord, setClinicalRecord] = useState('')
+  const [preinvoice, setPreinvoice] = useState('')
+  const [detections, setDetections] = useState<Detection[]>([])
+  const [hasRunAudit, setHasRunAudit] = useState(false)
 
-  // Filtered data based on the search query
-  const filteredChatList = conversations.filter(({ fullName }) =>
-    fullName.toLowerCase().includes(search.trim().toLowerCase())
-  )
+  const auditReady =
+    clinicalRecord.trim().length > 0 && preinvoice.trim().length > 0
 
-  const currentMessage = selectedUser?.messages.reduce(
-    (acc: Record<string, Convo[]>, obj) => {
-      const key = format(obj.timestamp, 'd MMM, yyyy')
+  function handleAnalyze() {
+    setDetections(runAudit(clinicalRecord, preinvoice))
+    setHasRunAudit(true)
+  }
 
-      // Create an array for the category if it doesn't exist
-      if (!acc[key]) {
-        acc[key] = []
-      }
+  function handleLoadSample() {
+    setClinicalRecord(sampleClinicalRecord)
+    setPreinvoice(samplePreinvoice)
+    setDetections([])
+    setHasRunAudit(false)
+  }
 
-      // Push the current object to the array
-      acc[key].push(obj)
-
-      return acc
-    },
-    {}
-  )
-
-  const users = conversations.map(({ messages, ...user }) => user)
+  function handleClear() {
+    setClinicalRecord('')
+    setPreinvoice('')
+    setDetections([])
+    setHasRunAudit(false)
+  }
 
   return (
     <>
-      {/* ===== Top Heading ===== */}
       <Header>
         <Search className='me-auto' />
         <ThemeSwitch />
@@ -74,277 +283,185 @@ export function Chats() {
       </Header>
 
       <Main fixed>
-        <section className='flex h-full gap-6'>
-          {/* Left Side */}
-          <div className='flex w-full flex-col gap-2 sm:w-56 lg:w-72 2xl:w-80'>
-            <div className='sticky top-0 z-10 -mx-4 bg-background px-4 pb-3 shadow-md sm:static sm:z-auto sm:mx-0 sm:p-0 sm:shadow-none'>
-              <div className='flex items-center justify-between py-2'>
-                <div className='flex gap-2'>
-                  <h1 className='text-2xl font-bold'>Inbox</h1>
-                  <MessagesSquare size={20} />
-                </div>
-
-                <Button
-                  size='icon'
-                  variant='ghost'
-                  onClick={() => setCreateConversationDialog(true)}
-                  className='rounded-lg'
-                >
-                  <Edit size={24} className='stroke-muted-foreground' />
-                </Button>
-              </div>
-
-              <label
-                className={cn(
-                  'focus-within:ring-1 focus-within:ring-ring focus-within:outline-hidden',
-                  'flex h-10 w-full items-center space-x-0 rounded-md border border-border ps-2'
-                )}
-              >
-                <SearchIcon size={15} className='me-2 stroke-slate-500' />
-                <span className='sr-only'>Search</span>
-                <input
-                  type='text'
-                  className='w-full flex-1 bg-inherit text-sm focus-visible:outline-hidden'
-                  placeholder='Search chat...'
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </label>
+        <section className='flex h-full flex-col gap-5'>
+          <div className='flex flex-col gap-4 border-b pb-4 md:flex-row md:items-start md:justify-between'>
+            <div>
+              <h1 className='text-2xl font-bold tracking-tight'>Auditor IA</h1>
+              <p className='text-sm text-muted-foreground'>
+                Cruce de historia clinica y prefactura para deteccion temprana de
+                glosas.
+              </p>
             </div>
 
-            <ScrollArea className='-mx-3 h-full overflow-scroll p-3'>
-              {filteredChatList.map((chatUsr) => {
-                const { id, profile, username, messages, fullName } = chatUsr
-                const lastConvo = messages[0]
-                const lastMsg =
-                  lastConvo.sender === 'You'
-                    ? `You: ${lastConvo.message}`
-                    : lastConvo.message
-                return (
-                  <Fragment key={id}>
-                    <button
-                      type='button'
-                      className={cn(
-                        'group hover:bg-accent hover:text-accent-foreground',
-                        `flex w-full rounded-md px-2 py-2 text-start text-sm`,
-                        selectedUser?.id === id && 'sm:bg-muted'
-                      )}
-                      onClick={() => {
-                        setSelectedUser(chatUsr)
-                        setMobileSelectedUser(chatUsr)
-                      }}
-                    >
-                      <div className='flex gap-2'>
-                        <Avatar>
-                          <AvatarImage src={profile} alt={username} />
-                          <AvatarFallback>
-                            {getDisplayNameInitials(fullName)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <span className='col-start-2 row-span-2 font-medium'>
-                            {fullName}
-                          </span>
-                          <span className='col-start-2 row-span-2 row-start-2 line-clamp-2 text-ellipsis text-muted-foreground group-hover:text-accent-foreground/90'>
-                            {lastMsg}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                    <Separator className='my-1' />
-                  </Fragment>
-                )
-              })}
-            </ScrollArea>
+            <div className='flex flex-wrap gap-2'>
+              <Button variant='outline' onClick={handleLoadSample}>
+                <FileSearch className='size-4' />
+                Cargar ejemplo
+              </Button>
+              <Button variant='outline' onClick={handleClear}>
+                <RefreshCcw className='size-4' />
+                Limpiar
+              </Button>
+              <Button onClick={handleAnalyze} disabled={!auditReady}>
+                <Sparkles className='size-4' />
+                Analizar con IA ML
+              </Button>
+            </div>
           </div>
 
-          {/* Right Side */}
-          {selectedUser ? (
-            <div
-              className={cn(
-                'absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col border bg-background shadow-xs sm:static sm:z-auto sm:flex sm:rounded-md',
-                mobileSelectedUser && 'inset-s-0 flex'
-              )}
-            >
-              {/* Top Part */}
-              <div className='mb-1 flex flex-none justify-between bg-card p-4 shadow-lg sm:rounded-t-md'>
-                {/* Left */}
-                <div className='flex gap-3'>
-                  <Button
-                    size='icon'
-                    variant='ghost'
-                    className='-ms-2 h-full sm:hidden'
-                    onClick={() => setMobileSelectedUser(null)}
+          <div className='grid min-h-0 flex-1 gap-5 overflow-hidden xl:grid-cols-[minmax(560px,1.25fr)_minmax(0,0.75fr)]'>
+            <Card className='flex min-h-0 flex-col overflow-hidden rounded-lg py-0'>
+              <CardHeader className='border-b px-5 py-4'>
+                <CardTitle>Documentos del cruce</CardTitle>
+                <CardDescription>
+                  Registra los dos insumos antes de ejecutar la auditoria.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className='flex min-h-0 flex-1 flex-col px-5 py-4'>
+                <Tabs
+                  defaultValue='clinical'
+                  className='flex min-h-0 flex-1 flex-col'
+                >
+                  <TabsList className='grid w-full grid-cols-2'>
+                    <TabsTrigger value='clinical'>
+                      <FileText className='size-4' />
+                      Historia
+                    </TabsTrigger>
+                    <TabsTrigger value='invoice'>
+                      <ClipboardCheck className='size-4' />
+                      Prefactura
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent
+                    value='clinical'
+                    className='mt-3 min-h-0 flex-1'
                   >
-                    <ArrowLeft className='rtl:rotate-180' />
-                  </Button>
-                  <div className='flex items-center gap-2 lg:gap-4'>
-                    <Avatar className='size-9 lg:size-11'>
-                      <AvatarImage
-                        src={selectedUser.profile}
-                        alt={selectedUser.username}
-                      />
-                      <AvatarFallback>
-                        {getDisplayNameInitials(selectedUser.fullName)}
-                      </AvatarFallback>
-                    </Avatar>
+                    <Textarea
+                      className='h-full min-h-0 resize-none'
+                      placeholder='Pega aqui la historia clinica...'
+                      value={clinicalRecord}
+                      onChange={(event) => setClinicalRecord(event.target.value)}
+                    />
+                  </TabsContent>
+                  <TabsContent
+                    value='invoice'
+                    className='mt-3 min-h-0 flex-1'
+                  >
+                    <Textarea
+                      className='h-full min-h-0 resize-none'
+                      placeholder='Pega aqui la prefactura...'
+                      value={preinvoice}
+                      onChange={(event) => setPreinvoice(event.target.value)}
+                    />
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+
+            <div className='flex min-h-0 flex-col gap-5 overflow-hidden'>
+              <Card className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg py-0'>
+                <CardHeader className='border-b px-5 py-4'>
+                  <div className='flex items-center justify-between gap-3'>
                     <div>
-                      <span className='col-start-2 row-span-2 text-sm font-medium lg:text-base'>
-                        {selectedUser.fullName}
-                      </span>
-                      <span className='col-start-2 row-span-2 row-start-2 line-clamp-1 block max-w-32 text-xs text-nowrap text-ellipsis text-muted-foreground lg:max-w-none lg:text-sm'>
-                        {selectedUser.title}
-                      </span>
+                      <div className='flex items-center gap-2'>
+                        <ShieldAlert className='size-4 text-muted-foreground' />
+                        <CardTitle>Glosas e inconsistencias</CardTitle>
+                      </div>
                     </div>
+                    <Badge variant='secondary'>IA ML</Badge>
                   </div>
-                </div>
+                </CardHeader>
+                <CardContent className='min-h-0 flex-1 px-0 py-0'>
+                  {!hasRunAudit ? (
+                    <div className='p-5'>
+                      <Alert>
+                        <BrainCircuit />
+                        <AlertTitle>Auditoria lista</AlertTitle>
+                        <AlertDescription>
+                          Ingresa ambos documentos y ejecuta el analisis para ver
+                          posibles glosas.
+                        </AlertDescription>
+                      </Alert>
+                    </div>
+                  ) : detections.length === 0 ? (
+                    <div className='p-5'>
+                      <Alert>
+                        <ClipboardCheck />
+                        <AlertTitle>Sin glosas criticas detectadas</AlertTitle>
+                        <AlertDescription>
+                          El cruce no encontro inconsistencias fuertes bajo las
+                          reglas actuales de IA ML.
+                        </AlertDescription>
+                      </Alert>
+                    </div>
+                  ) : (
+                    <ScrollArea className='h-full'>
+                      <div className='space-y-3 p-5'>
+                        {detections.map((detection) => {
+                          const styles = getLevelStyles(detection.level)
 
-                {/* Right */}
-                <div className='-me-1 flex items-center gap-1 lg:gap-2'>
-                  <Button
-                    size='icon'
-                    variant='ghost'
-                    className='hidden size-8 rounded-full sm:inline-flex lg:size-10'
-                  >
-                    <Video size={22} className='stroke-muted-foreground' />
-                  </Button>
-                  <Button
-                    size='icon'
-                    variant='ghost'
-                    className='hidden size-8 rounded-full sm:inline-flex lg:size-10'
-                  >
-                    <Phone size={22} className='stroke-muted-foreground' />
-                  </Button>
-                  <Button
-                    size='icon'
-                    variant='ghost'
-                    className='h-10 rounded-md sm:h-8 sm:w-4 lg:h-10 lg:w-6'
-                  >
-                    <MoreVertical className='stroke-muted-foreground sm:size-5' />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Conversation */}
-              <div className='flex flex-1 flex-col gap-2 rounded-md px-4 pt-0 pb-4'>
-                <div className='flex size-full flex-1'>
-                  <div className='chat-text-container relative -me-4 flex flex-1 flex-col overflow-y-hidden'>
-                    <div className='chat-flex flex h-40 w-full grow flex-col-reverse justify-start gap-4 overflow-y-auto py-2 pe-4 pb-4'>
-                      {currentMessage &&
-                        Object.keys(currentMessage).map((key) => (
-                          <Fragment key={key}>
-                            {currentMessage[key].map((msg, index) => (
-                              <div
-                                key={`${msg.sender}-${msg.timestamp}-${index}`}
-                                className={cn(
-                                  'chat-box max-w-72 px-3 py-2 wrap-break-word shadow-lg',
-                                  msg.sender === 'You'
-                                    ? 'self-end rounded-[16px_16px_0_16px] bg-primary/90 text-primary-foreground/75'
-                                    : 'self-start rounded-[16px_16px_16px_0] bg-muted'
-                                )}
-                              >
-                                {msg.message}{' '}
-                                <span
-                                  className={cn(
-                                    'mt-1 block text-xs font-light text-foreground/75 italic',
-                                    msg.sender === 'You' &&
-                                      'text-end text-primary-foreground/85'
-                                  )}
-                                >
-                                  {format(msg.timestamp, 'h:mm a')}
-                                </span>
+                          return (
+                            <div
+                              key={detection.id}
+                              className='rounded-lg border bg-card p-4 shadow-xs'
+                            >
+                              <div className='flex items-start justify-between gap-3'>
+                                <div className='min-w-0 space-y-2'>
+                                  <div className='flex flex-wrap items-center gap-2'>
+                                    <Badge
+                                      variant='outline'
+                                      className={styles.badge}
+                                    >
+                                      {detection.level}
+                                    </Badge>
+                                    <Badge variant='secondary'>
+                                      {detection.category}
+                                    </Badge>
+                                  </div>
+                                  <h2 className='text-sm leading-5 font-semibold'>
+                                    {detection.title}
+                                  </h2>
+                                </div>
+                                <div className='shrink-0 text-end'>
+                                  <div className='text-lg font-bold'>
+                                    {detection.probability}%
+                                  </div>
+                                  <div className='text-[11px] text-muted-foreground'>
+                                    prob.
+                                  </div>
+                                </div>
                               </div>
-                            ))}
-                            <div className='text-center text-xs'>{key}</div>
-                          </Fragment>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-                <form className='flex w-full flex-none gap-2'>
-                  <div className='flex flex-1 items-center gap-2 rounded-md border border-input bg-card px-2 py-1 focus-within:ring-1 focus-within:ring-ring focus-within:outline-hidden lg:gap-4'>
-                    <div className='space-x-1'>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        className='h-8 rounded-md'
-                      >
-                        <Plus size={20} className='stroke-muted-foreground' />
-                      </Button>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        className='hidden h-8 rounded-md lg:inline-flex'
-                      >
-                        <ImagePlus
-                          size={20}
-                          className='stroke-muted-foreground'
-                        />
-                      </Button>
-                      <Button
-                        size='icon'
-                        type='button'
-                        variant='ghost'
-                        className='hidden h-8 rounded-md lg:inline-flex'
-                      >
-                        <Paperclip
-                          size={20}
-                          className='stroke-muted-foreground'
-                        />
-                      </Button>
-                    </div>
-                    <label className='flex-1'>
-                      <span className='sr-only'>Chat Text Box</span>
-                      <input
-                        type='text'
-                        placeholder='Type your messages...'
-                        className='h-8 w-full bg-inherit focus-visible:outline-hidden'
-                      />
-                    </label>
-                    <Button
-                      variant='ghost'
-                      size='icon'
-                      className='hidden sm:inline-flex'
-                    >
-                      <Send size={20} />
-                    </Button>
-                  </div>
-                  <Button className='h-full sm:hidden'>
-                    <Send size={18} /> Send
-                  </Button>
-                </form>
-              </div>
+
+                              <div className='mt-3 h-2 overflow-hidden rounded-full bg-muted'>
+                                <div
+                                  className={cn('h-full rounded-full', styles.bar)}
+                                  style={{ width: `${detection.probability}%` }}
+                                />
+                              </div>
+
+                              <div className='mt-4 space-y-3 text-sm'>
+                                <div className='flex gap-2 text-muted-foreground'>
+                                  <AlertTriangle className='mt-0.5 size-4 shrink-0' />
+                                  <p className='leading-5'>{detection.evidence}</p>
+                                </div>
+                                <div className='flex gap-2'>
+                                  <ClipboardCheck className='mt-0.5 size-4 shrink-0 text-muted-foreground' />
+                                  <p className='leading-5'>
+                                    {detection.recommendation}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </ScrollArea>
+                  )}
+                </CardContent>
+              </Card>
             </div>
-          ) : (
-            <div
-              className={cn(
-                'absolute inset-0 start-full z-50 hidden w-full flex-1 flex-col justify-center rounded-md border bg-card shadow-xs sm:static sm:z-auto sm:flex'
-              )}
-            >
-              <div className='flex flex-col items-center space-y-6'>
-                <div className='flex size-16 items-center justify-center rounded-full border-2 border-border'>
-                  <MessagesSquare className='size-8' />
-                </div>
-                <div className='space-y-2 text-center'>
-                  <h1 className='text-xl font-semibold'>Your messages</h1>
-                  <p className='text-sm text-muted-foreground'>
-                    Send a message to start a chat.
-                  </p>
-                </div>
-                <Button onClick={() => setCreateConversationDialog(true)}>
-                  Send message
-                </Button>
-              </div>
-            </div>
-          )}
+          </div>
         </section>
-        <NewChat
-          users={users}
-          onOpenChange={setCreateConversationDialog}
-          open={createConversationDialogOpened}
-        />
       </Main>
     </>
   )

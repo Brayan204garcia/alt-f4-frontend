@@ -101,22 +101,21 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filter users...'
+        searchPlaceholder='Filtrar auditorias...'
         searchKey='username'
         filters={[
           {
             columnId: 'status',
-            title: 'Status',
+            title: 'Estado',
             options: [
-              { label: 'Active', value: 'active' },
-              { label: 'Inactive', value: 'inactive' },
-              { label: 'Invited', value: 'invited' },
-              { label: 'Suspended', value: 'suspended' },
+              { label: 'Inconsistente', value: 'inconsistente' },
+              { label: 'Consistente', value: 'consistente' },
+              { label: 'Pendiente', value: 'pendiente' },
             ],
           },
           {
             columnId: 'role',
-            title: 'Role',
+            title: 'Severidad',
             options: roles.map((role) => ({ ...role })),
           },
         ]}
@@ -180,7 +179,7 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  Sin resultados.
                 </TableCell>
               </TableRow>
             )}

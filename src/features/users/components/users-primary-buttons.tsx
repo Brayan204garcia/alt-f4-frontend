@@ -1,4 +1,4 @@
-import { MailPlus, UserPlus } from 'lucide-react'
+import { FilePlus2, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useUsers } from './users-provider'
 
@@ -11,10 +11,10 @@ export function UsersPrimaryButtons() {
         className='space-x-1'
         onClick={() => setOpen('invite')}
       >
-        <span>Invite User</span> <MailPlus size={18} />
+        <span>Probar API</span> <Send size={18} />
       </Button>
       <Button className='space-x-1' onClick={() => setOpen('add')}>
-        <span>Add User</span> <UserPlus size={18} />
+        <span>Nueva auditoría</span> <FilePlus2 size={18} />
       </Button>
     </div>
   )

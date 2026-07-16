@@ -24,7 +24,7 @@ const route = getRouteApi('/_authenticated/apps/')
 type AppType = 'all' | 'connected' | 'notConnected'
 
 const appText = new Map<AppType, string>([
-  ['all', 'All Apps'],
+  ['all', 'Todas'],
   ['connected', 'Connected'],
   ['notConnected', 'Not Connected'],
 ])
@@ -94,17 +94,15 @@ export function Apps() {
       {/* ===== Content ===== */}
       <Main fixed>
         <div>
-          <h1 className='text-2xl font-bold tracking-tight'>
-            App Integrations
-          </h1>
+          <h1 className='text-2xl font-bold tracking-tight'>Normativas</h1>
           <p className='text-muted-foreground'>
-            Here&apos;s a list of your apps for the integration!
+            Consulta y administra las normativas disponibles para la auditoria.
           </p>
         </div>
         <div className='my-4 flex items-end justify-between sm:my-0 sm:items-center'>
           <div className='flex flex-col gap-4 sm:my-4 sm:flex-row'>
             <Input
-              placeholder='Filter apps...'
+              placeholder='Filtrar normativas...'
               className='h-9 w-40 lg:w-62.5'
               value={searchTerm}
               onChange={handleSearch}
@@ -114,7 +112,7 @@ export function Apps() {
                 <SelectValue>{appText.get(appType)}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='all'>All Apps</SelectItem>
+                <SelectItem value='all'>Todas</SelectItem>
                 <SelectItem value='connected'>Connected</SelectItem>
                 <SelectItem value='notConnected'>Not Connected</SelectItem>
               </SelectContent>

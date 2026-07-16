@@ -3,30 +3,68 @@ import { faker } from '@faker-js/faker'
 // Set a fixed seed for consistent data generation
 faker.seed(67890)
 
-export const users = Array.from({ length: 500 }, () => {
-  const firstName = faker.person.firstName()
-  const lastName = faker.person.lastName()
+const patientFirstNames = [
+  'Maria',
+  'Carlos',
+  'Ana',
+  'Jorge',
+  'Lucia',
+  'Andres',
+  'Patricia',
+  'Luis',
+  'Diana',
+  'Fernando',
+  'Claudia',
+  'Santiago',
+  'Gloria',
+  'Ricardo',
+  'Paula',
+  'Miguel',
+]
+
+const patientLastNames = [
+  'Gomez',
+  'Rodriguez',
+  'Martinez',
+  'Lopez',
+  'Garcia',
+  'Hernandez',
+  'Ramirez',
+  'Torres',
+  'Castro',
+  'Rojas',
+  'Moreno',
+  'Vargas',
+  'Ortiz',
+  'Jimenez',
+  'Diaz',
+  'Ruiz',
+]
+
+export const users = Array.from({ length: 500 }, (_, index) => {
+  const firstName = faker.helpers.arrayElement(patientFirstNames)
+  const lastName = faker.helpers.arrayElement(patientLastNames)
+  const eps = faker.helpers.arrayElement([
+    'Sura EPS',
+    'Nueva EPS',
+    'Sanitas',
+    'Compensar',
+    'Salud Total',
+    'Famisanar',
+  ])
   return {
     id: faker.string.uuid(),
     firstName,
     lastName,
-    username: faker.internet
-      .username({ firstName, lastName })
-      .toLocaleLowerCase(),
-    email: faker.internet.email({ firstName }).toLocaleLowerCase(),
-    phoneNumber: faker.phone.number({ style: 'international' }),
+    username: `RAD-2026-${String(index + 1).padStart(5, '0')}`,
+    email: eps,
+    phoneNumber: faker.date.recent({ days: 30 }).toLocaleDateString('es-CO'),
     status: faker.helpers.arrayElement([
-      'active',
-      'inactive',
-      'invited',
-      'suspended',
+      'inconsistente',
+      'consistente',
+      'pendiente',
     ]),
-    role: faker.helpers.arrayElement([
-      'superadmin',
-      'admin',
-      'cashier',
-      'manager',
-    ]),
+    role: faker.helpers.arrayElement(['alta', 'media', 'ninguna']),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
   }
