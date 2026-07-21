@@ -112,7 +112,7 @@ describe('UserAuthForm', () => {
     vi.clearAllMocks()
 
     const { getByRole, getByLabelText } = await render(
-      <UserAuthForm redirectTo='/settings' />
+      <UserAuthForm redirectTo='/configuracion' />
     )
 
     await userEvent.fill(getByRole('textbox', { name: /Email/i }), 'a@b.com')
@@ -125,7 +125,7 @@ describe('UserAuthForm', () => {
 
     await vi.waitFor(() =>
       expect(navigate).toHaveBeenCalledWith({
-        to: '/settings',
+        to: '/configuracion',
         replace: true,
       })
     )

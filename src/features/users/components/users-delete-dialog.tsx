@@ -26,7 +26,7 @@ export function UsersDeleteDialog({
     if (value.trim() !== currentRow.username) return
 
     onOpenChange(false)
-    showSubmittedData(currentRow, 'The following user has been deleted:')
+    showSubmittedData(currentRow, 'La siguiente auditoria fue eliminada:')
   }
 
   return (
@@ -41,7 +41,7 @@ export function UsersDeleteDialog({
             className='me-1 inline-block stroke-destructive'
             size={18}
           />{' '}
-          Delete User
+          Eliminar auditoria
         </span>
       }
       desc={
@@ -54,35 +54,35 @@ export function UsersDeleteDialog({
           className='space-y-4'
         >
           <p className='mb-2'>
-            Are you sure you want to delete{' '}
+            Seguro que quieres eliminar{' '}
             <span className='font-bold'>{currentRow.username}</span>?
             <br />
-            This action will permanently remove the user with the role of{' '}
+            Esta accion quitara permanentemente la auditoria con severidad{' '}
             <span className='font-bold'>
               {currentRow.role.toUpperCase()}
             </span>{' '}
-            from the system. This cannot be undone.
+            del sistema. Esto no se puede deshacer.
           </p>
 
           <Label className='my-2'>
-            Username:
+            Radicado:
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder='Enter username to confirm deletion.'
+              placeholder='Escribe el radicado para confirmar.'
               autoFocus
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>Advertencia</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation can not be rolled back.
+              Ten cuidado, esta operacion no se puede revertir.
             </AlertDescription>
           </Alert>
         </form>
       }
-      confirmText='Delete'
+      confirmText='Eliminar'
       destructive
     />
   )

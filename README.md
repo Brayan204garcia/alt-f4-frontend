@@ -1,119 +1,83 @@
-# Shadcn Admin Dashboard
+# Auditor medico digital
 
-Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and accessibility in mind.
+Proyecto del GRUPO ALT-F4 para Samsung Innovation Campus 2025 - 2026.
 
-![alt text](public/images/shadcn-admin.png)
+Sistema de auditoria medica digital para Health & Life IPS SAS. La aplicacion compara historia clinica y prefactura para detectar inconsistencias, priorizar hallazgos y apoyar la revision de radicados medicos.
 
-[![Sponsored by Clerk](https://img.shields.io/badge/Sponsored%20by-Clerk-5b6ee1?logo=clerk)](https://go.clerk.com/GttUAaK)
+## Modulos principales
 
-I've been creating dashboard UIs at work and for my personal projects. I always wanted to make a reusable collection of dashboard UI for future projects; and here it is now. While I've created a few custom components, some of the code is directly adapted from ShadcnUI examples.
+- Dashboard con indicadores del proceso de auditoria.
+- Auditor IA para diagnosticar cruces entre historia clinica y prefactura.
+- Auditorias API con radicados de ejemplo y detalle de hallazgos.
+- Notificaciones para alertas de severidad media y alta.
+- Normativas, tareas y configuracion del sistema.
+- Sobre Nosotros con integrantes y aliados academicos del proyecto.
 
-> This is not a starter project (template) though. I'll probably make one in the future.
+## Tecnologias
 
-## Features
+- React
+- Vite
+- TypeScript
+- TanStack Router
+- Tailwind CSS
+- Radix UI
+- Lucide Icons
 
-- Light/dark mode
-- Responsive
-- Accessible
-- With built-in Sidebar component
-- Global search command
-- 10+ pages
-- Extra custom components
-- RTL support
-
-<details>
-<summary>Customized Components (click to expand)</summary>
-
-This project uses Shadcn UI components, but some have been slightly modified for better RTL (Right-to-Left) support and other improvements. These customized components differ from the original Shadcn UI versions.
-
-If you want to update components using the Shadcn CLI (e.g., `npx shadcn@latest add <component>`), it's generally safe for non-customized components. For the listed customized ones, you may need to manually merge changes to preserve the project's modifications and avoid overwriting RTL support or other updates.
-
-> If you don't require RTL support, you can safely update the 'RTL Updated Components' via the Shadcn CLI, as these changes are primarily for RTL compatibility. The 'Modified Components' may have other customizations to consider.
-
-### Modified Components
-
-- scroll-area
-- sonner
-- separator
-
-### RTL Updated Components
-
-- alert-dialog
-- calendar
-- command
-- dialog
-- dropdown-menu
-- select
-- table
-- sheet
-- sidebar
-- switch
-
-**Notes:**
-
-- **Modified Components**: These have general updates, potentially including RTL adjustments.
-- **RTL Updated Components**: These have specific changes for RTL language support (e.g., layout, positioning).
-- For implementation details, check the source files in `src/components/ui/`.
-- All other Shadcn UI components in the project are standard and can be safely updated via the CLI.
-
-</details>
-
-## Tech Stack
-
-**UI:** [ShadcnUI](https://ui.shadcn.com) (TailwindCSS + RadixUI)
-
-**Build Tool:** [Vite](https://vitejs.dev/)
-
-**Routing:** [TanStack Router](https://tanstack.com/router/latest)
-
-**Type Checking:** [TypeScript](https://www.typescriptlang.org/)
-
-**Linting/Formatting:** [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
-
-**Icons:** [Lucide Icons](https://lucide.dev/icons/), [Tabler Icons](https://tabler.io/icons) (Brand icons only)
-
-**Auth (partial):** [Clerk](https://go.clerk.com/GttUAaK)
-
-## Run Locally
-
-Clone the project
+## Ejecutar localmente
 
 ```bash
-  git clone https://github.com/satnaing/shadcn-admin.git
+npm install
+npm run dev
 ```
 
-Go to the project directory
+## Scripts utiles
 
 ```bash
-  cd shadcn-admin
+npm run build
+npm run lint
+npm run format
 ```
 
-Install dependencies
+## Preparacion para GitHub
+
+Antes de subir el proyecto:
 
 ```bash
-  pnpm install
+npm install
+npm run build
+git status
+git add .
+git commit -m "Preparar auditor medico digital para despliegue"
+git branch -M main
+git remote add origin https://github.com/TU-USUARIO/auditor-medico-digital.git
+git push -u origin main
 ```
 
-Start the server
+## Despliegue en Cloudflare Pages
+
+Configuracion recomendada al conectar el repositorio desde Cloudflare Pages:
+
+- Framework preset: Vite
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: `/`
+- Node version: `22`
+
+El proyecto incluye:
+
+- `public/_redirects` para que las rutas internas de React funcionen al recargar la pagina.
+- `public/_headers` con headers basicos de seguridad y cache para assets.
+- `.node-version` para fijar Node 22 en entornos de despliegue.
+- `wrangler.toml` para despliegues opcionales desde la CLI de Cloudflare.
+
+Comandos opcionales con Wrangler:
 
 ```bash
-  pnpm run dev
+npm run preview:cloudflare
+npm run deploy:cloudflare
 ```
 
-## Sponsoring this project ❤️
+## Contexto academico
 
-If you find this project helpful or use this in your own work, consider [sponsoring me](https://github.com/sponsors/satnaing) to support development and maintenance. You can [buy me a coffee](https://buymeacoffee.com/satnaing) as well. Don’t worry, every penny helps. Thank you! 🙏
-
-For questions or sponsorship inquiries, feel free to reach out at [satnaingdev@gmail.com](mailto:satnaingdev@gmail.com).
-
-### Current Sponsor
-
-- [Clerk](https://go.clerk.com/GttUAaK) - authentication and user management for the modern web
-
-## Author
-
-Crafted with 🤍 by [@satnaing](https://github.com/satnaing)
-
-## License
-
-Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
+Este proyecto fue desarrollado con fines academicos, demostrativos e informativos dentro del reto "Auditor medico digital".

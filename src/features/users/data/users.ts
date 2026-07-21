@@ -41,7 +41,15 @@ const patientLastNames = [
   'Ruiz',
 ]
 
-export const users = Array.from({ length: 500 }, (_, index) => {
+const auditResults = [
+  { status: 'inconsistente', role: 'media' },
+  { status: 'inconsistente', role: 'media' },
+  { status: 'inconsistente', role: 'alta' },
+  { status: 'consistente', role: 'ninguna' },
+  { status: 'consistente', role: 'ninguna' },
+] as const
+
+export const users = Array.from({ length: 5 }, (_, index) => {
   const firstName = faker.helpers.arrayElement(patientFirstNames)
   const lastName = faker.helpers.arrayElement(patientLastNames)
   const eps = faker.helpers.arrayElement([
@@ -59,12 +67,8 @@ export const users = Array.from({ length: 500 }, (_, index) => {
     username: `RAD-2026-${String(index + 1).padStart(5, '0')}`,
     email: eps,
     phoneNumber: faker.date.recent({ days: 30 }).toLocaleDateString('es-CO'),
-    status: faker.helpers.arrayElement([
-      'inconsistente',
-      'consistente',
-      'pendiente',
-    ]),
-    role: faker.helpers.arrayElement(['alta', 'media', 'ninguna']),
+    status: auditResults[index].status,
+    role: auditResults[index].role,
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
   }

@@ -43,7 +43,7 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
 
   const handleOpenChange = (newOpen: boolean) => {
     onOpenChange(newOpen)
-    // Reset selected users when dialog closes
+    // Limpia los usuarios seleccionados al cerrar el dialogo.
     if (!newOpen) {
       setSelectedUsers([])
     }
@@ -53,11 +53,11 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className='sm:max-w-150'>
         <DialogHeader>
-          <DialogTitle>New message</DialogTitle>
+          <DialogTitle>Nuevo mensaje</DialogTitle>
         </DialogHeader>
         <div className='flex flex-col gap-4'>
           <div className='flex flex-wrap items-baseline-last gap-2'>
-            <span className='min-h-6 text-sm text-muted-foreground'>To:</span>
+            <span className='min-h-6 text-sm text-muted-foreground'>Para:</span>
             {selectedUsers.map((user) => (
               <Badge key={user.id} variant='default'>
                 {user.fullName}
@@ -77,11 +77,11 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
           </div>
           <Command className='rounded-lg border'>
             <CommandInput
-              placeholder='Search people...'
+              placeholder='Buscar personas...'
               className='text-foreground'
             />
             <CommandList>
-              <CommandEmpty>No people found.</CommandEmpty>
+              <CommandEmpty>No se encontraron personas.</CommandEmpty>
               <CommandGroup>
                 {users.map((user) => (
                   <CommandItem
@@ -118,7 +118,7 @@ export function NewChat({ users, onOpenChange, open }: NewChatProps) {
             onClick={() => showSubmittedData(selectedUsers)}
             disabled={selectedUsers.length === 0}
           >
-            Chat
+            Iniciar chat
           </Button>
         </div>
       </DialogContent>

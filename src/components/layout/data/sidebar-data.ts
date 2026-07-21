@@ -18,12 +18,10 @@ import {
   Users,
   KeyRound,
   MessagesSquare,
-  ShieldCheck,
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
 } from 'lucide-react'
-import { ClerkLogo } from '@/assets/clerk-logo'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -54,19 +52,9 @@ export const sidebarData: SidebarData = {
       title: 'General',
       items: [
         {
-          title: 'Dashboard',
+          title: 'Panel',
           url: '/',
           icon: LayoutDashboard,
-        },
-        {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: ListTodo,
-        },
-        {
-          title: 'Normativas',
-          url: '/apps',
-          icon: Package,
         },
         {
           title: 'Auditor IA',
@@ -80,70 +68,36 @@ export const sidebarData: SidebarData = {
           icon: Users,
         },
         {
-          title: 'Secured by Clerk',
-          icon: ClerkLogo,
-          items: [
-            {
-              title: 'Sign In',
-              url: '/clerk/sign-in',
-            },
-            {
-              title: 'Sign Up',
-              url: '/clerk/sign-up',
-            },
-            {
-              title: 'User Management',
-              url: '/clerk/user-management',
-            },
-          ],
+          title: 'Normativas',
+          url: '/apps',
+          icon: Package,
+        },
+        {
+          title: 'Tareas',
+          url: '/tasks',
+          icon: ListTodo,
         },
       ],
     },
     {
-      title: 'Pages',
+      title: 'Paginas',
       items: [
         {
-          title: 'Auth',
-          icon: ShieldCheck,
-          items: [
-            {
-              title: 'Sign In',
-              url: '/sign-in',
-            },
-            {
-              title: 'Sign In (2 Col)',
-              url: '/sign-in-2',
-            },
-            {
-              title: 'Sign Up',
-              url: '/sign-up',
-            },
-            {
-              title: 'Forgot Password',
-              url: '/forgot-password',
-            },
-            {
-              title: 'OTP',
-              url: '/otp',
-            },
-          ],
-        },
-        {
-          title: 'Errors',
+          title: 'Errores',
           icon: Bug,
           items: [
             {
-              title: 'Unauthorized',
+              title: 'No autorizado',
               url: '/errors/unauthorized',
               icon: Lock,
             },
             {
-              title: 'Forbidden',
+              title: 'Prohibido',
               url: '/errors/forbidden',
               icon: UserX,
             },
             {
-              title: 'Not Found',
+              title: 'No encontrado',
               url: '/errors/not-found',
               icon: FileX,
             },
@@ -153,7 +107,7 @@ export const sidebarData: SidebarData = {
               icon: ServerOff,
             },
             {
-              title: 'Maintenance Error',
+              title: 'Mantenimiento',
               url: '/errors/maintenance-error',
               icon: Construction,
             },
@@ -162,46 +116,46 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Other',
+      title: 'Otros',
       items: [
         {
-          title: 'Settings',
+          title: 'Configuracion',
           icon: Settings,
           items: [
             {
-              title: 'Profile',
-              url: '/settings',
+              title: 'Perfil',
+              url: '/configuracion',
               icon: UserCog,
             },
             {
-              title: 'Account',
-              url: '/settings/account',
+              title: 'Cuenta',
+              url: '/configuracion/cuenta',
               icon: Wrench,
             },
             {
-              title: 'Appearance',
-              url: '/settings/appearance',
+              title: 'Apariencia',
+              url: '/configuracion/apariencia',
               icon: Palette,
             },
             {
-              title: 'Notifications',
-              url: '/settings/notifications',
+              title: 'Notificaciones',
+              url: '/configuracion/notificaciones',
               icon: Bell,
             },
             {
-              title: 'Display',
-              url: '/settings/display',
+              title: 'Visualizacion',
+              url: '/configuracion/visualizacion',
               icon: Monitor,
             },
             {
-              title: 'API Key',
-              url: '/settings/api-key',
+              title: 'Clave API',
+              url: '/configuracion/clave-api',
               icon: KeyRound,
             },
           ],
         },
         {
-          title: 'Help Center',
+          title: 'Sobre Nosotros',
           url: '/help-center',
           icon: HelpCircle,
         },

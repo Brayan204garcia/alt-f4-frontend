@@ -49,21 +49,18 @@ export function TasksDialogs() {
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)
-              showSubmittedData(
-                currentRow,
-                'The following task has been deleted:'
-              )
+              showSubmittedData(currentRow, 'La siguiente tarea fue eliminada:')
             }}
             className='max-w-md'
-            title={`Delete this task: ${currentRow.id} ?`}
+            title={`Eliminar esta tarea: ${currentRow.id}?`}
             desc={
               <>
-                You are about to delete a task with the ID{' '}
+                Estas a punto de eliminar la tarea con ID{' '}
                 <strong>{currentRow.id}</strong>. <br />
-                This action cannot be undone.
+                Esta accion no se puede deshacer.
               </>
             }
-            confirmText='Delete'
+            confirmText='Eliminar'
           />
         </>
       )}

@@ -11,33 +11,33 @@ import { SidebarNav } from './components/sidebar-nav'
 
 const sidebarNavItems = [
   {
-    title: 'Profile',
-    href: '/settings',
+    title: 'Perfil',
+    href: '/configuracion',
     icon: <UserCog size={18} />,
   },
   {
-    title: 'Account',
-    href: '/settings/account',
+    title: 'Cuenta',
+    href: '/configuracion/cuenta',
     icon: <Wrench size={18} />,
   },
   {
-    title: 'Appearance',
-    href: '/settings/appearance',
+    title: 'Apariencia',
+    href: '/configuracion/apariencia',
     icon: <Palette size={18} />,
   },
   {
-    title: 'Notifications',
-    href: '/settings/notifications',
+    title: 'Notificaciones',
+    href: '/configuracion/notificaciones',
     icon: <Bell size={18} />,
   },
   {
-    title: 'Display',
-    href: '/settings/display',
+    title: 'Visualizacion',
+    href: '/configuracion/visualizacion',
     icon: <Monitor size={18} />,
   },
   {
-    title: 'API Key',
-    href: '/settings/api-key',
+    title: 'Clave API',
+    href: '/configuracion/clave-api',
     icon: <KeyRound size={18} />,
   },
 ]
@@ -56,10 +56,10 @@ export function Settings() {
       <Main fixed>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            Settings
+            Configuracion
           </h1>
           <p className='text-muted-foreground'>
-            Manage your account settings and set e-mail preferences.
+            Administra tu cuenta, preferencias, notificaciones e integraciones.
           </p>
         </div>
         <Separator className='my-4 lg:my-6' />

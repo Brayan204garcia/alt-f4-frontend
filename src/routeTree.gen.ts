@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ClerkRouteRouteImport } from './routes/clerk/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as errors503RouteImport } from './routes/(errors)/503'
@@ -17,35 +16,22 @@ import { Route as errors500RouteImport } from './routes/(errors)/500'
 import { Route as errors404RouteImport } from './routes/(errors)/404'
 import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
-import { Route as authSignUpRouteImport } from './routes/(auth)/sign-up'
 import { Route as authSignIn2RouteImport } from './routes/(auth)/sign-in-2'
-import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
-import { Route as authOtpRouteImport } from './routes/(auth)/otp'
-import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
-import { Route as ClerkAuthenticatedRouteRouteImport } from './routes/clerk/_authenticated/route'
-import { Route as ClerkauthRouteRouteImport } from './routes/clerk/(auth)/route'
-import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
+import { Route as AuthenticatedConfiguracionRouteRouteImport } from './routes/_authenticated/configuracion/route'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
-import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedRadicadosApiIndexRouteImport } from './routes/_authenticated/radicados-api/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
+import { Route as AuthenticatedConfiguracionIndexRouteImport } from './routes/_authenticated/configuracion/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
-import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
-import { Route as ClerkauthSignUpRouteImport } from './routes/clerk/(auth)/sign-up'
-import { Route as ClerkauthSignInRouteImport } from './routes/clerk/(auth)/sign-in'
-import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings/notifications'
-import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
-import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
-import { Route as AuthenticatedSettingsApiKeyRouteImport } from './routes/_authenticated/settings/api-key'
-import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedRadicadosApiRadicadoRouteImport } from './routes/_authenticated/radicados-api/$radicado'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedConfiguracionVisualizacionRouteImport } from './routes/_authenticated/configuracion/visualizacion'
+import { Route as AuthenticatedConfiguracionNotificacionesRouteImport } from './routes/_authenticated/configuracion/notificaciones'
+import { Route as AuthenticatedConfiguracionCuentaRouteImport } from './routes/_authenticated/configuracion/cuenta'
+import { Route as AuthenticatedConfiguracionClaveApiRouteImport } from './routes/_authenticated/configuracion/clave-api'
+import { Route as AuthenticatedConfiguracionAparienciaRouteImport } from './routes/_authenticated/configuracion/apariencia'
 
-const ClerkRouteRoute = ClerkRouteRouteImport.update({
-  id: '/clerk',
-  path: '/clerk',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -80,43 +66,15 @@ const errors401Route = errors401RouteImport.update({
   path: '/401',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authSignUpRoute = authSignUpRouteImport.update({
-  id: '/(auth)/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const authSignIn2Route = authSignIn2RouteImport.update({
   id: '/(auth)/sign-in-2',
   path: '/sign-in-2',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authSignInRoute = authSignInRouteImport.update({
-  id: '/(auth)/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authOtpRoute = authOtpRouteImport.update({
-  id: '/(auth)/otp',
-  path: '/otp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
-  id: '/(auth)/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ClerkAuthenticatedRouteRoute = ClerkAuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => ClerkRouteRoute,
-} as any)
-const ClerkauthRouteRoute = ClerkauthRouteRouteImport.update({
-  id: '/(auth)',
-  getParentRoute: () => ClerkRouteRoute,
-} as any)
-const AuthenticatedSettingsRouteRoute =
-  AuthenticatedSettingsRouteRouteImport.update({
-    id: '/settings',
-    path: '/settings',
+const AuthenticatedConfiguracionRouteRoute =
+  AuthenticatedConfiguracionRouteRouteImport.update({
+    id: '/configuracion',
+    path: '/configuracion',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
@@ -124,12 +82,6 @@ const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
   path: '/tasks/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSettingsIndexRoute =
-  AuthenticatedSettingsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
 const AuthenticatedRadicadosApiIndexRoute =
   AuthenticatedRadicadosApiIndexRouteImport.update({
     id: '/radicados-api/',
@@ -142,6 +94,12 @@ const AuthenticatedHelpCenterIndexRoute =
     path: '/help-center/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedConfiguracionIndexRoute =
+  AuthenticatedConfiguracionIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -152,51 +110,11 @@ const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   path: '/apps/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ClerkAuthenticatedUserManagementRoute =
-  ClerkAuthenticatedUserManagementRouteImport.update({
-    id: '/user-management',
-    path: '/user-management',
-    getParentRoute: () => ClerkAuthenticatedRouteRoute,
-  } as any)
-const ClerkauthSignUpRoute = ClerkauthSignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => ClerkauthRouteRoute,
-} as any)
-const ClerkauthSignInRoute = ClerkauthSignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => ClerkauthRouteRoute,
-} as any)
-const AuthenticatedSettingsNotificationsRoute =
-  AuthenticatedSettingsNotificationsRouteImport.update({
-    id: '/notifications',
-    path: '/notifications',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsDisplayRoute =
-  AuthenticatedSettingsDisplayRouteImport.update({
-    id: '/display',
-    path: '/display',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsAppearanceRoute =
-  AuthenticatedSettingsAppearanceRouteImport.update({
-    id: '/appearance',
-    path: '/appearance',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsApiKeyRoute =
-  AuthenticatedSettingsApiKeyRouteImport.update({
-    id: '/api-key',
-    path: '/api-key',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsAccountRoute =
-  AuthenticatedSettingsAccountRouteImport.update({
-    id: '/account',
-    path: '/account',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
+const AuthenticatedRadicadosApiRadicadoRoute =
+  AuthenticatedRadicadosApiRadicadoRouteImport.update({
+    id: '/radicados-api/$radicado',
+    path: '/radicados-api/$radicado',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
@@ -204,203 +122,182 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedConfiguracionVisualizacionRoute =
+  AuthenticatedConfiguracionVisualizacionRouteImport.update({
+    id: '/visualizacion',
+    path: '/visualizacion',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
+const AuthenticatedConfiguracionNotificacionesRoute =
+  AuthenticatedConfiguracionNotificacionesRouteImport.update({
+    id: '/notificaciones',
+    path: '/notificaciones',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
+const AuthenticatedConfiguracionCuentaRoute =
+  AuthenticatedConfiguracionCuentaRouteImport.update({
+    id: '/cuenta',
+    path: '/cuenta',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
+const AuthenticatedConfiguracionClaveApiRoute =
+  AuthenticatedConfiguracionClaveApiRouteImport.update({
+    id: '/clave-api',
+    path: '/clave-api',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
+const AuthenticatedConfiguracionAparienciaRoute =
+  AuthenticatedConfiguracionAparienciaRouteImport.update({
+    id: '/apariencia',
+    path: '/apariencia',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
-  '/clerk': typeof ClerkauthRouteRouteWithChildren
-  '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/otp': typeof authOtpRoute
-  '/sign-in': typeof authSignInRoute
+  '/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/sign-in-2': typeof authSignIn2Route
-  '/sign-up': typeof authSignUpRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
+  '/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
+  '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
+  '/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
+  '/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/api-key': typeof AuthenticatedSettingsApiKeyRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/clerk/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
+  '/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
-  '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRoutesByTo {
-  '/clerk': typeof ClerkauthRouteRouteWithChildren
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/otp': typeof authOtpRoute
-  '/sign-in': typeof authSignInRoute
   '/sign-in-2': typeof authSignIn2Route
-  '/sign-up': typeof authSignUpRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
+  '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
+  '/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
+  '/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/api-key': typeof AuthenticatedSettingsApiKeyRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/clerk/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/configuracion': typeof AuthenticatedConfiguracionIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/radicados-api': typeof AuthenticatedRadicadosApiIndexRoute
-  '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/clerk': typeof ClerkRouteRouteWithChildren
-  '/_authenticated/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
-  '/clerk/(auth)': typeof ClerkauthRouteRouteWithChildren
-  '/clerk/_authenticated': typeof ClerkAuthenticatedRouteRouteWithChildren
-  '/(auth)/forgot-password': typeof authForgotPasswordRoute
-  '/(auth)/otp': typeof authOtpRoute
-  '/(auth)/sign-in': typeof authSignInRoute
+  '/_authenticated/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/(auth)/sign-in-2': typeof authSignIn2Route
-  '/(auth)/sign-up': typeof authSignUpRoute
   '/(errors)/401': typeof errors401Route
   '/(errors)/403': typeof errors403Route
   '/(errors)/404': typeof errors404Route
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
+  '/_authenticated/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/_authenticated/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
+  '/_authenticated/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
+  '/_authenticated/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/_authenticated/settings/api-key': typeof AuthenticatedSettingsApiKeyRoute
-  '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/clerk/(auth)/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/_authenticated/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/_authenticated/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
-  '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/clerk'
-    | '/settings'
-    | '/forgot-password'
-    | '/otp'
-    | '/sign-in'
+    | '/configuracion'
     | '/sign-in-2'
-    | '/sign-up'
     | '/401'
     | '/403'
     | '/404'
     | '/500'
     | '/503'
+    | '/configuracion/apariencia'
+    | '/configuracion/clave-api'
+    | '/configuracion/cuenta'
+    | '/configuracion/notificaciones'
+    | '/configuracion/visualizacion'
     | '/errors/$error'
-    | '/settings/account'
-    | '/settings/api-key'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
-    | '/clerk/sign-in'
-    | '/clerk/sign-up'
-    | '/clerk/user-management'
+    | '/radicados-api/$radicado'
     | '/apps/'
     | '/chats/'
+    | '/configuracion/'
     | '/help-center/'
     | '/radicados-api/'
-    | '/settings/'
     | '/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/clerk'
-    | '/forgot-password'
-    | '/otp'
-    | '/sign-in'
     | '/sign-in-2'
-    | '/sign-up'
     | '/401'
     | '/403'
     | '/404'
     | '/500'
     | '/503'
     | '/'
+    | '/configuracion/apariencia'
+    | '/configuracion/clave-api'
+    | '/configuracion/cuenta'
+    | '/configuracion/notificaciones'
+    | '/configuracion/visualizacion'
     | '/errors/$error'
-    | '/settings/account'
-    | '/settings/api-key'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
-    | '/clerk/sign-in'
-    | '/clerk/sign-up'
-    | '/clerk/user-management'
+    | '/radicados-api/$radicado'
     | '/apps'
     | '/chats'
+    | '/configuracion'
     | '/help-center'
     | '/radicados-api'
-    | '/settings'
     | '/tasks'
   id:
     | '__root__'
     | '/_authenticated'
-    | '/clerk'
-    | '/_authenticated/settings'
-    | '/clerk/(auth)'
-    | '/clerk/_authenticated'
-    | '/(auth)/forgot-password'
-    | '/(auth)/otp'
-    | '/(auth)/sign-in'
+    | '/_authenticated/configuracion'
     | '/(auth)/sign-in-2'
-    | '/(auth)/sign-up'
     | '/(errors)/401'
     | '/(errors)/403'
     | '/(errors)/404'
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/configuracion/apariencia'
+    | '/_authenticated/configuracion/clave-api'
+    | '/_authenticated/configuracion/cuenta'
+    | '/_authenticated/configuracion/notificaciones'
+    | '/_authenticated/configuracion/visualizacion'
     | '/_authenticated/errors/$error'
-    | '/_authenticated/settings/account'
-    | '/_authenticated/settings/api-key'
-    | '/_authenticated/settings/appearance'
-    | '/_authenticated/settings/display'
-    | '/_authenticated/settings/notifications'
-    | '/clerk/(auth)/sign-in'
-    | '/clerk/(auth)/sign-up'
-    | '/clerk/_authenticated/user-management'
+    | '/_authenticated/radicados-api/$radicado'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
+    | '/_authenticated/configuracion/'
     | '/_authenticated/help-center/'
     | '/_authenticated/radicados-api/'
-    | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  ClerkRouteRoute: typeof ClerkRouteRouteWithChildren
-  authForgotPasswordRoute: typeof authForgotPasswordRoute
-  authOtpRoute: typeof authOtpRoute
-  authSignInRoute: typeof authSignInRoute
   authSignIn2Route: typeof authSignIn2Route
-  authSignUpRoute: typeof authSignUpRoute
   errors401Route: typeof errors401Route
   errors403Route: typeof errors403Route
   errors404Route: typeof errors404Route
@@ -410,13 +307,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/clerk': {
-      id: '/clerk'
-      path: '/clerk'
-      fullPath: '/clerk'
-      preLoaderRoute: typeof ClerkRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -466,13 +356,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof errors401RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(auth)/sign-up': {
-      id: '/(auth)/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof authSignUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(auth)/sign-in-2': {
       id: '/(auth)/sign-in-2'
       path: '/sign-in-2'
@@ -480,46 +363,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignIn2RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(auth)/sign-in': {
-      id: '/(auth)/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof authSignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/otp': {
-      id: '/(auth)/otp'
-      path: '/otp'
-      fullPath: '/otp'
-      preLoaderRoute: typeof authOtpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/forgot-password': {
-      id: '/(auth)/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof authForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/clerk/_authenticated': {
-      id: '/clerk/_authenticated'
-      path: ''
-      fullPath: '/clerk'
-      preLoaderRoute: typeof ClerkAuthenticatedRouteRouteImport
-      parentRoute: typeof ClerkRouteRoute
-    }
-    '/clerk/(auth)': {
-      id: '/clerk/(auth)'
-      path: ''
-      fullPath: '/clerk'
-      preLoaderRoute: typeof ClerkauthRouteRouteImport
-      parentRoute: typeof ClerkRouteRoute
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteRouteImport
+    '/_authenticated/configuracion': {
+      id: '/_authenticated/configuracion'
+      path: '/configuracion'
+      fullPath: '/configuracion'
+      preLoaderRoute: typeof AuthenticatedConfiguracionRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tasks/': {
@@ -528,13 +376,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/tasks/'
       preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/settings/': {
-      id: '/_authenticated/settings/'
-      path: '/'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
     '/_authenticated/radicados-api/': {
       id: '/_authenticated/radicados-api/'
@@ -550,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/configuracion/': {
+      id: '/_authenticated/configuracion/'
+      path: '/'
+      fullPath: '/configuracion/'
+      preLoaderRoute: typeof AuthenticatedConfiguracionIndexRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -564,61 +412,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/clerk/_authenticated/user-management': {
-      id: '/clerk/_authenticated/user-management'
-      path: '/user-management'
-      fullPath: '/clerk/user-management'
-      preLoaderRoute: typeof ClerkAuthenticatedUserManagementRouteImport
-      parentRoute: typeof ClerkAuthenticatedRouteRoute
-    }
-    '/clerk/(auth)/sign-up': {
-      id: '/clerk/(auth)/sign-up'
-      path: '/sign-up'
-      fullPath: '/clerk/sign-up'
-      preLoaderRoute: typeof ClerkauthSignUpRouteImport
-      parentRoute: typeof ClerkauthRouteRoute
-    }
-    '/clerk/(auth)/sign-in': {
-      id: '/clerk/(auth)/sign-in'
-      path: '/sign-in'
-      fullPath: '/clerk/sign-in'
-      preLoaderRoute: typeof ClerkauthSignInRouteImport
-      parentRoute: typeof ClerkauthRouteRoute
-    }
-    '/_authenticated/settings/notifications': {
-      id: '/_authenticated/settings/notifications'
-      path: '/notifications'
-      fullPath: '/settings/notifications'
-      preLoaderRoute: typeof AuthenticatedSettingsNotificationsRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/display': {
-      id: '/_authenticated/settings/display'
-      path: '/display'
-      fullPath: '/settings/display'
-      preLoaderRoute: typeof AuthenticatedSettingsDisplayRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/appearance': {
-      id: '/_authenticated/settings/appearance'
-      path: '/appearance'
-      fullPath: '/settings/appearance'
-      preLoaderRoute: typeof AuthenticatedSettingsAppearanceRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/api-key': {
-      id: '/_authenticated/settings/api-key'
-      path: '/api-key'
-      fullPath: '/settings/api-key'
-      preLoaderRoute: typeof AuthenticatedSettingsApiKeyRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/account': {
-      id: '/_authenticated/settings/account'
-      path: '/account'
-      fullPath: '/settings/account'
-      preLoaderRoute: typeof AuthenticatedSettingsAccountRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
+    '/_authenticated/radicados-api/$radicado': {
+      id: '/_authenticated/radicados-api/$radicado'
+      path: '/radicados-api/$radicado'
+      fullPath: '/radicados-api/$radicado'
+      preLoaderRoute: typeof AuthenticatedRadicadosApiRadicadoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
@@ -627,38 +426,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/configuracion/visualizacion': {
+      id: '/_authenticated/configuracion/visualizacion'
+      path: '/visualizacion'
+      fullPath: '/configuracion/visualizacion'
+      preLoaderRoute: typeof AuthenticatedConfiguracionVisualizacionRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
+    '/_authenticated/configuracion/notificaciones': {
+      id: '/_authenticated/configuracion/notificaciones'
+      path: '/notificaciones'
+      fullPath: '/configuracion/notificaciones'
+      preLoaderRoute: typeof AuthenticatedConfiguracionNotificacionesRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
+    '/_authenticated/configuracion/cuenta': {
+      id: '/_authenticated/configuracion/cuenta'
+      path: '/cuenta'
+      fullPath: '/configuracion/cuenta'
+      preLoaderRoute: typeof AuthenticatedConfiguracionCuentaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
+    '/_authenticated/configuracion/clave-api': {
+      id: '/_authenticated/configuracion/clave-api'
+      path: '/clave-api'
+      fullPath: '/configuracion/clave-api'
+      preLoaderRoute: typeof AuthenticatedConfiguracionClaveApiRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
+    '/_authenticated/configuracion/apariencia': {
+      id: '/_authenticated/configuracion/apariencia'
+      path: '/apariencia'
+      fullPath: '/configuracion/apariencia'
+      preLoaderRoute: typeof AuthenticatedConfiguracionAparienciaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
   }
 }
 
-interface AuthenticatedSettingsRouteRouteChildren {
-  AuthenticatedSettingsAccountRoute: typeof AuthenticatedSettingsAccountRoute
-  AuthenticatedSettingsApiKeyRoute: typeof AuthenticatedSettingsApiKeyRoute
-  AuthenticatedSettingsAppearanceRoute: typeof AuthenticatedSettingsAppearanceRoute
-  AuthenticatedSettingsDisplayRoute: typeof AuthenticatedSettingsDisplayRoute
-  AuthenticatedSettingsNotificationsRoute: typeof AuthenticatedSettingsNotificationsRoute
-  AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
+interface AuthenticatedConfiguracionRouteRouteChildren {
+  AuthenticatedConfiguracionAparienciaRoute: typeof AuthenticatedConfiguracionAparienciaRoute
+  AuthenticatedConfiguracionClaveApiRoute: typeof AuthenticatedConfiguracionClaveApiRoute
+  AuthenticatedConfiguracionCuentaRoute: typeof AuthenticatedConfiguracionCuentaRoute
+  AuthenticatedConfiguracionNotificacionesRoute: typeof AuthenticatedConfiguracionNotificacionesRoute
+  AuthenticatedConfiguracionVisualizacionRoute: typeof AuthenticatedConfiguracionVisualizacionRoute
+  AuthenticatedConfiguracionIndexRoute: typeof AuthenticatedConfiguracionIndexRoute
 }
 
-const AuthenticatedSettingsRouteRouteChildren: AuthenticatedSettingsRouteRouteChildren =
+const AuthenticatedConfiguracionRouteRouteChildren: AuthenticatedConfiguracionRouteRouteChildren =
   {
-    AuthenticatedSettingsAccountRoute: AuthenticatedSettingsAccountRoute,
-    AuthenticatedSettingsApiKeyRoute: AuthenticatedSettingsApiKeyRoute,
-    AuthenticatedSettingsAppearanceRoute: AuthenticatedSettingsAppearanceRoute,
-    AuthenticatedSettingsDisplayRoute: AuthenticatedSettingsDisplayRoute,
-    AuthenticatedSettingsNotificationsRoute:
-      AuthenticatedSettingsNotificationsRoute,
-    AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
+    AuthenticatedConfiguracionAparienciaRoute:
+      AuthenticatedConfiguracionAparienciaRoute,
+    AuthenticatedConfiguracionClaveApiRoute:
+      AuthenticatedConfiguracionClaveApiRoute,
+    AuthenticatedConfiguracionCuentaRoute:
+      AuthenticatedConfiguracionCuentaRoute,
+    AuthenticatedConfiguracionNotificacionesRoute:
+      AuthenticatedConfiguracionNotificacionesRoute,
+    AuthenticatedConfiguracionVisualizacionRoute:
+      AuthenticatedConfiguracionVisualizacionRoute,
+    AuthenticatedConfiguracionIndexRoute: AuthenticatedConfiguracionIndexRoute,
   }
 
-const AuthenticatedSettingsRouteRouteWithChildren =
-  AuthenticatedSettingsRouteRoute._addFileChildren(
-    AuthenticatedSettingsRouteRouteChildren,
+const AuthenticatedConfiguracionRouteRouteWithChildren =
+  AuthenticatedConfiguracionRouteRoute._addFileChildren(
+    AuthenticatedConfiguracionRouteRouteChildren,
   )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
+  AuthenticatedConfiguracionRouteRoute: typeof AuthenticatedConfiguracionRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedRadicadosApiRadicadoRoute: typeof AuthenticatedRadicadosApiRadicadoRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
@@ -667,9 +506,12 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
+  AuthenticatedConfiguracionRouteRoute:
+    AuthenticatedConfiguracionRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedRadicadosApiRadicadoRoute:
+    AuthenticatedRadicadosApiRadicadoRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
@@ -680,57 +522,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface ClerkauthRouteRouteChildren {
-  ClerkauthSignInRoute: typeof ClerkauthSignInRoute
-  ClerkauthSignUpRoute: typeof ClerkauthSignUpRoute
-}
-
-const ClerkauthRouteRouteChildren: ClerkauthRouteRouteChildren = {
-  ClerkauthSignInRoute: ClerkauthSignInRoute,
-  ClerkauthSignUpRoute: ClerkauthSignUpRoute,
-}
-
-const ClerkauthRouteRouteWithChildren = ClerkauthRouteRoute._addFileChildren(
-  ClerkauthRouteRouteChildren,
-)
-
-interface ClerkAuthenticatedRouteRouteChildren {
-  ClerkAuthenticatedUserManagementRoute: typeof ClerkAuthenticatedUserManagementRoute
-}
-
-const ClerkAuthenticatedRouteRouteChildren: ClerkAuthenticatedRouteRouteChildren =
-  {
-    ClerkAuthenticatedUserManagementRoute:
-      ClerkAuthenticatedUserManagementRoute,
-  }
-
-const ClerkAuthenticatedRouteRouteWithChildren =
-  ClerkAuthenticatedRouteRoute._addFileChildren(
-    ClerkAuthenticatedRouteRouteChildren,
-  )
-
-interface ClerkRouteRouteChildren {
-  ClerkauthRouteRoute: typeof ClerkauthRouteRouteWithChildren
-  ClerkAuthenticatedRouteRoute: typeof ClerkAuthenticatedRouteRouteWithChildren
-}
-
-const ClerkRouteRouteChildren: ClerkRouteRouteChildren = {
-  ClerkauthRouteRoute: ClerkauthRouteRouteWithChildren,
-  ClerkAuthenticatedRouteRoute: ClerkAuthenticatedRouteRouteWithChildren,
-}
-
-const ClerkRouteRouteWithChildren = ClerkRouteRoute._addFileChildren(
-  ClerkRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  ClerkRouteRoute: ClerkRouteRouteWithChildren,
-  authForgotPasswordRoute: authForgotPasswordRoute,
-  authOtpRoute: authOtpRoute,
-  authSignInRoute: authSignInRoute,
   authSignIn2Route: authSignIn2Route,
-  authSignUpRoute: authSignUpRoute,
   errors401Route: errors401Route,
   errors403Route: errors403Route,
   errors404Route: errors404Route,

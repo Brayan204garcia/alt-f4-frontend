@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { IconFacebook, IconGithub } from '@/assets/brand-icons'
@@ -22,12 +22,12 @@ import { PasswordInput } from '@/components/password-input'
 
 const formSchema = z.object({
   email: z.email({
-    error: (iss) => (iss.input === '' ? 'Please enter your email.' : undefined),
+    error: (iss) => (iss.input === '' ? 'Ingresa tu correo.' : undefined),
   }),
   password: z
     .string()
-    .min(1, 'Please enter your password.')
-    .min(7, 'Password must be at least 7 characters long.'),
+    .min(1, 'Ingresa tu contrasena.')
+    .min(7, 'La contrasena debe tener al menos 7 caracteres.'),
 })
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -55,7 +55,7 @@ export function UserAuthForm({
     setIsLoading(true)
 
     toast.promise(sleep(2000), {
-      loading: 'Signing in...',
+      loading: 'Iniciando sesion...',
       success: () => {
         setIsLoading(false)
 
@@ -75,7 +75,7 @@ export function UserAuthForm({
         const targetPath = redirectTo || '/'
         navigate({ to: targetPath, replace: true })
 
-        return `Welcome back, ${data.email}!`
+        return `Bienvenido de nuevo, ${data.email}!`
       },
       error: 'Error',
     })
@@ -93,9 +93,9 @@ export function UserAuthForm({
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo</FormLabel>
               <FormControl>
-                <Input placeholder='name@example.com' {...field} />
+                <Input placeholder='nombre@ejemplo.com' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,23 +106,17 @@ export function UserAuthForm({
           name='password'
           render={({ field }) => (
             <FormItem className='relative'>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contrasena</FormLabel>
               <FormControl>
                 <PasswordInput placeholder='********' {...field} />
               </FormControl>
               <FormMessage />
-              <Link
-                to='/forgot-password'
-                className='absolute inset-e-0 -top-0.5 text-sm font-medium text-muted-foreground hover:opacity-75'
-              >
-                Forgot password?
-              </Link>
             </FormItem>
           )}
         />
         <Button className='mt-2' disabled={isLoading}>
           {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
-          Sign in
+          Iniciar sesion
         </Button>
 
         <div className='relative my-2'>
@@ -131,7 +125,7 @@ export function UserAuthForm({
           </div>
           <div className='relative flex justify-center text-xs uppercase'>
             <span className='bg-background px-2 text-muted-foreground'>
-              Or continue with
+              O continua con
             </span>
           </div>
         </div>

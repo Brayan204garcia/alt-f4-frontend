@@ -31,25 +31,25 @@ import {
 import { DatePicker } from '@/components/date-picker'
 
 const languages = [
-  { label: 'English', value: 'en' },
-  { label: 'French', value: 'fr' },
-  { label: 'German', value: 'de' },
-  { label: 'Spanish', value: 'es' },
-  { label: 'Portuguese', value: 'pt' },
-  { label: 'Russian', value: 'ru' },
-  { label: 'Japanese', value: 'ja' },
-  { label: 'Korean', value: 'ko' },
-  { label: 'Chinese', value: 'zh' },
+  { label: 'Ingles', value: 'en' },
+  { label: 'Frances', value: 'fr' },
+  { label: 'Aleman', value: 'de' },
+  { label: 'Espanol', value: 'es' },
+  { label: 'Portugues', value: 'pt' },
+  { label: 'Ruso', value: 'ru' },
+  { label: 'Japones', value: 'ja' },
+  { label: 'Coreano', value: 'ko' },
+  { label: 'Chino', value: 'zh' },
 ] as const
 
 const accountFormSchema = z.object({
   name: z
     .string()
-    .min(1, 'Please enter your name.')
-    .min(2, 'Name must be at least 2 characters.')
-    .max(30, 'Name must not be longer than 30 characters.'),
-  dob: z.date('Please select your date of birth.'),
-  language: z.string('Please select a language.'),
+    .min(1, 'Ingresa tu nombre.')
+    .min(2, 'El nombre debe tener al menos 2 caracteres.')
+    .max(30, 'El nombre no debe superar 30 caracteres.'),
+  dob: z.date('Selecciona tu fecha de nacimiento.'),
+  language: z.string('Selecciona un idioma.'),
 })
 
 type AccountFormValues = z.infer<typeof accountFormSchema>
@@ -77,13 +77,12 @@ export function AccountForm() {
           name='name'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nombre</FormLabel>
               <FormControl>
-                <Input placeholder='Your name' {...field} />
+                <Input placeholder='Tu nombre' {...field} />
               </FormControl>
               <FormDescription>
-                This is the name that will be displayed on your profile and in
-                emails.
+                Este nombre se mostrara en tu perfil y en los correos.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -94,10 +93,10 @@ export function AccountForm() {
           name='dob'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>Fecha de nacimiento</FormLabel>
               <DatePicker selected={field.value} onSelect={field.onChange} />
               <FormDescription>
-                Your date of birth is used to calculate your age.
+                Esta fecha se usa para calcular tu edad.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -108,7 +107,7 @@ export function AccountForm() {
           name='language'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Idioma</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -124,15 +123,15 @@ export function AccountForm() {
                         ? languages.find(
                             (language) => language.value === field.value
                           )?.label
-                        : 'Select language'}
+                        : 'Seleccionar idioma'}
                       <CaretSortIcon className='ms-2 h-4 w-4 shrink-0 opacity-50' />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className='w-50 p-0'>
                   <Command>
-                    <CommandInput placeholder='Search language...' />
-                    <CommandEmpty>No language found.</CommandEmpty>
+                    <CommandInput placeholder='Buscar idioma...' />
+                    <CommandEmpty>No se encontro el idioma.</CommandEmpty>
                     <CommandGroup>
                       <CommandList>
                         {languages.map((language) => (
@@ -160,13 +159,13 @@ export function AccountForm() {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                This is the language that will be used in the dashboard.
+                Este idioma se usara en el panel.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Update account</Button>
+        <Button type='submit'>Actualizar cuenta</Button>
       </form>
     </Form>
   )

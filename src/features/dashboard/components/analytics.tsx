@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -5,148 +6,78 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { AnalyticsChart } from './analytics-chart'
 
 export function Analytics() {
   return (
     <div className='space-y-4'>
-      <Card>
-        <CardHeader>
-          <CardTitle>Traffic Overview</CardTitle>
-          <CardDescription>Weekly clicks and unique visitors</CardDescription>
-        </CardHeader>
-        <CardContent className='px-6'>
-          <AnalyticsChart />
-        </CardContent>
-      </Card>
-      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-        <Card>
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-            <CardTitle className='text-sm font-medium'>Total Clicks</CardTitle>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              className='h-4 w-4 text-muted-foreground'
-            >
-              <path d='M3 3v18h18' />
-              <path d='M7 15l4-4 4 4 4-6' />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-bold'>1,248</div>
-            <p className='text-xs text-muted-foreground'>+12.4% vs last week</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-            <CardTitle className='text-sm font-medium'>
-              Unique Visitors
-            </CardTitle>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              className='h-4 w-4 text-muted-foreground'
-            >
-              <circle cx='12' cy='7' r='4' />
-              <path d='M6 21v-2a6 6 0 0 1 12 0v2' />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-bold'>832</div>
-            <p className='text-xs text-muted-foreground'>+5.8% vs last week</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-            <CardTitle className='text-sm font-medium'>Bounce Rate</CardTitle>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              className='h-4 w-4 text-muted-foreground'
-            >
-              <path d='M3 12h6l3 6 3-6h6' />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-bold'>42%</div>
-            <p className='text-xs text-muted-foreground'>-3.2% vs last week</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-            <CardTitle className='text-sm font-medium'>Avg. Session</CardTitle>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              className='h-4 w-4 text-muted-foreground'
-            >
-              <circle cx='12' cy='12' r='10' />
-              <path d='M12 6v6l4 2' />
-            </svg>
-          </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-bold'>3m 24s</div>
-            <p className='text-xs text-muted-foreground'>+18s vs last week</p>
-          </CardContent>
-        </Card>
-      </div>
       <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
+        <Card className='col-span-1 lg:col-span-3'>
+          <CardHeader>
+            <CardTitle>Correo de notificaciones</CardTitle>
+            <CardDescription>
+              Las alertas del auditor llegaran a este correo.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className='space-y-3'>
+            <div className='space-y-2'>
+              <Label htmlFor='notification-email'>Correo destino</Label>
+              <Input
+                id='notification-email'
+                type='email'
+                placeholder='auditoria@healthlifeips.com'
+              />
+            </div>
+            <p className='text-xs leading-5 text-muted-foreground'>
+              Se enviaran notificaciones cuando un cruce tenga severidad media o
+              alta.
+            </p>
+            <Button className='w-full sm:w-fit'>Guardar</Button>
+          </CardContent>
+        </Card>
         <Card className='col-span-1 lg:col-span-4'>
           <CardHeader>
-            <CardTitle>Referrers</CardTitle>
-            <CardDescription>Top sources driving traffic</CardDescription>
+            <CardTitle>Alertas por tipo</CardTitle>
+            <CardDescription>
+              Distribucion de inconsistencias detectadas
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <SimpleBarList
               items={[
-                { name: 'Direct', value: 512 },
-                { name: 'Product Hunt', value: 238 },
-                { name: 'Twitter', value: 174 },
-                { name: 'Blog', value: 104 },
+                { name: 'Diagnostico no relacionado', value: 2 },
+                { name: 'No facturado', value: 1 },
+                { name: 'Consistente', value: 2 },
               ]}
               barClass='bg-primary'
               valueFormatter={(n) => `${n}`}
             />
           </CardContent>
         </Card>
-        <Card className='col-span-1 lg:col-span-3'>
-          <CardHeader>
-            <CardTitle>Devices</CardTitle>
-            <CardDescription>How users access your app</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <SimpleBarList
-              items={[
-                { name: 'Desktop', value: 74 },
-                { name: 'Mobile', value: 22 },
-                { name: 'Tablet', value: 4 },
-              ]}
-              barClass='bg-muted-foreground'
-              valueFormatter={(n) => `${n}%`}
-            />
-          </CardContent>
-        </Card>
       </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Resumen de actividad</CardTitle>
+          <CardDescription>
+            Cruces revisados y alertas enviadas durante la semana.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className='space-y-3 px-6'>
+          <div className='flex flex-wrap gap-4 text-xs text-muted-foreground'>
+            <div className='flex items-center gap-2'>
+              <span className='size-2 rounded-full bg-primary' />
+              Cruces revisados
+            </div>
+            <div className='flex items-center gap-2'>
+              <span className='size-2 rounded-full bg-muted-foreground' />
+              Alertas enviadas
+            </div>
+          </div>
+          <AnalyticsChart />
+        </CardContent>
+      </Card>
     </div>
   )
 }

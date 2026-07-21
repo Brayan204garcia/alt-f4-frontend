@@ -14,7 +14,7 @@ export function UsersPrimaryButtons() {
         <span>Probar API</span> <Send size={18} />
       </Button>
       <Button className='space-x-1' onClick={() => setOpen('add')}>
-        <span>Nueva auditoría</span> <FilePlus2 size={18} />
+        <span>Nueva auditoria</span> <FilePlus2 size={18} />
       </Button>
     </div>
   )

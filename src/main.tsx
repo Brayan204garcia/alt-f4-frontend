@@ -52,13 +52,13 @@ const queryClient = new QueryClient({
     onError: (error) => {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
-          toast.error('Session expired!')
+          toast.error('La sesion expiro.')
           useAuthStore.getState().auth.reset()
           const redirect = `${router.history.location.href}`
-          router.navigate({ to: '/sign-in', search: { redirect } })
+          router.navigate({ to: '/sign-in-2', search: { redirect } })
         }
         if (error.response?.status === 500) {
-          toast.error('Internal Server Error!')
+          toast.error('Error interno del servidor.')
           // Only navigate to error page in production to avoid disrupting HMR in development
           if (import.meta.env.PROD) {
             router.navigate({ to: '/500' })

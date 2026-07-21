@@ -33,10 +33,10 @@ export function DataTableBulkActions<TData>({
   const handleBulkStatusChange = (status: string) => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Updating status...',
+      loading: 'Actualizando estado...',
       success: () => {
         table.resetRowSelection()
-        return `Status updated to "${status}" for ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''}.`
+        return `Estado actualizado a "${status}" para ${selectedTasks.length} tarea${selectedTasks.length > 1 ? 's' : ''}.`
       },
       error: 'Error',
     })
@@ -46,10 +46,10 @@ export function DataTableBulkActions<TData>({
   const handleBulkPriorityChange = (priority: string) => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Updating priority...',
+      loading: 'Actualizando prioridad...',
       success: () => {
         table.resetRowSelection()
-        return `Priority updated to "${priority}" for ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''}.`
+        return `Prioridad actualizada a "${priority}" para ${selectedTasks.length} tarea${selectedTasks.length > 1 ? 's' : ''}.`
       },
       error: 'Error',
     })
@@ -59,10 +59,10 @@ export function DataTableBulkActions<TData>({
   const handleBulkExport = () => {
     const selectedTasks = selectedRows.map((row) => row.original as Task)
     toast.promise(sleep(2000), {
-      loading: 'Exporting tasks...',
+      loading: 'Exportando tareas...',
       success: () => {
         table.resetRowSelection()
-        return `Exported ${selectedTasks.length} task${selectedTasks.length > 1 ? 's' : ''} to CSV.`
+        return `Se exportaron ${selectedTasks.length} tarea${selectedTasks.length > 1 ? 's' : ''} a CSV.`
       },
       error: 'Error',
     })
@@ -71,7 +71,7 @@ export function DataTableBulkActions<TData>({
 
   return (
     <>
-      <BulkActionsToolbar table={table} entityName='task'>
+      <BulkActionsToolbar table={table} entityName='tarea'>
         <DropdownMenu>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -80,16 +80,16 @@ export function DataTableBulkActions<TData>({
                   variant='outline'
                   size='icon'
                   className='size-8'
-                  aria-label='Update status'
-                  title='Update status'
+                  aria-label='Actualizar estado'
+                  title='Actualizar estado'
                 >
                   <CircleArrowUp />
-                  <span className='sr-only'>Update status</span>
+                  <span className='sr-only'>Actualizar estado</span>
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Update status</p>
+              <p>Actualizar estado</p>
             </TooltipContent>
           </Tooltip>
           <DropdownMenuContent sideOffset={14}>
@@ -116,16 +116,16 @@ export function DataTableBulkActions<TData>({
                   variant='outline'
                   size='icon'
                   className='size-8'
-                  aria-label='Update priority'
-                  title='Update priority'
+                  aria-label='Actualizar prioridad'
+                  title='Actualizar prioridad'
                 >
                   <ArrowUpDown />
-                  <span className='sr-only'>Update priority</span>
+                  <span className='sr-only'>Actualizar prioridad</span>
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Update priority</p>
+              <p>Actualizar prioridad</p>
             </TooltipContent>
           </Tooltip>
           <DropdownMenuContent sideOffset={14}>
@@ -151,15 +151,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => handleBulkExport()}
               className='size-8'
-              aria-label='Export tasks'
-              title='Export tasks'
+              aria-label='Exportar tareas'
+              title='Exportar tareas'
             >
               <Download />
-              <span className='sr-only'>Export tasks</span>
+              <span className='sr-only'>Exportar tareas</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Export tasks</p>
+            <p>Exportar tareas</p>
           </TooltipContent>
         </Tooltip>
 
@@ -170,15 +170,15 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-              aria-label='Delete selected tasks'
-              title='Delete selected tasks'
+              aria-label='Eliminar tareas seleccionadas'
+              title='Eliminar tareas seleccionadas'
             >
               <Trash2 />
-              <span className='sr-only'>Delete selected tasks</span>
+              <span className='sr-only'>Eliminar tareas seleccionadas</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Delete selected tasks</p>
+            <p>Eliminar tareas seleccionadas</p>
           </TooltipContent>
         </Tooltip>
       </BulkActionsToolbar>

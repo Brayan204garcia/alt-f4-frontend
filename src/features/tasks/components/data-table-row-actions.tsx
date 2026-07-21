@@ -38,7 +38,7 @@ export function DataTableRowActions<TData>({
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>Abrir menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-40'>
@@ -48,13 +48,13 @@ export function DataTableRowActions<TData>({
             setOpen('update')
           }}
         >
-          Edit
+          Editar
         </DropdownMenuItem>
-        <DropdownMenuItem disabled>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem disabled>Favorite</DropdownMenuItem>
+        <DropdownMenuItem disabled>Hacer copia</DropdownMenuItem>
+        <DropdownMenuItem disabled>Favorito</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger>Etiquetas</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuRadioGroup value={task.label}>
               {labels.map((label) => (
@@ -72,7 +72,7 @@ export function DataTableRowActions<TData>({
             setOpen('delete')
           }}
         >
-          Delete
+          Eliminar
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>

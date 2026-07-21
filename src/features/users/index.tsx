@@ -1,4 +1,4 @@
-import { getRouteApi } from '@tanstack/react-router'
+import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -15,7 +15,8 @@ const route = getRouteApi('/_authenticated/radicados-api/')
 
 export function Users() {
   const search = route.useSearch()
-  const navigate = route.useNavigate()
+  const tableNavigate = route.useNavigate()
+  const navigate = useNavigate()
 
   return (
     <UsersProvider>
@@ -36,7 +37,17 @@ export function Users() {
           </div>
           <UsersPrimaryButtons />
         </div>
-        <UsersTable data={users} search={search} navigate={navigate} />
+        <UsersTable
+          data={users}
+          search={search}
+          navigate={tableNavigate}
+          onOpenAudit={(radicado) => {
+            navigate({
+              to: '/radicados-api/$radicado',
+              params: { radicado },
+            })
+          }}
+        />
       </Main>
 
       <UsersDialogs />

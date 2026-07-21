@@ -1,83 +1,43 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
+import { users } from '../../users/data/users'
+
+const severityStyles = {
+  alta: 'border-red-200 bg-red-50 text-red-700',
+  media: 'border-amber-200 bg-amber-50 text-amber-700',
+  ninguna: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+}
 
 export function RecentSales() {
+  const recentAudits = [...users]
+    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+    .slice(0, 5)
+
   return (
-    <div className='space-y-8'>
-      <div className='flex items-center gap-4'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/01.png' alt='Avatar' />
-          <AvatarFallback>OM</AvatarFallback>
-        </Avatar>
-        <div className='flex flex-1 flex-wrap items-center justify-between'>
-          <div className='space-y-1'>
-            <p className='text-sm leading-none font-medium'>Olivia Martin</p>
-            <p className='text-sm text-muted-foreground'>
-              olivia.martin@email.com
+    <div className='space-y-4'>
+      {recentAudits.map((audit) => (
+        <div key={audit.id} className='flex items-center gap-3'>
+          <div className='min-w-0 flex-1'>
+            <p className='truncate text-sm leading-none font-medium'>
+              {audit.firstName} {audit.lastName}
+            </p>
+            <p className='mt-1 truncate text-xs text-muted-foreground'>
+              {audit.username} - {audit.email}
             </p>
           </div>
-          <div className='font-medium'>+$1,999.00</div>
-        </div>
-      </div>
-      <div className='flex items-center gap-4'>
-        <Avatar className='flex h-9 w-9 items-center justify-center space-y-0 border'>
-          <AvatarImage src='/avatars/02.png' alt='Avatar' />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className='flex flex-1 flex-wrap items-center justify-between'>
-          <div className='space-y-1'>
-            <p className='text-sm leading-none font-medium'>Jackson Lee</p>
-            <p className='text-sm text-muted-foreground'>
-              jackson.lee@email.com
-            </p>
+          <div className='flex flex-col items-end gap-1'>
+            <Badge
+              variant='outline'
+              className={cn('capitalize', severityStyles[audit.role])}
+            >
+              {audit.role}
+            </Badge>
+            <span className='text-xs text-muted-foreground capitalize'>
+              {audit.status}
+            </span>
           </div>
-          <div className='font-medium'>+$39.00</div>
         </div>
-      </div>
-      <div className='flex items-center gap-4'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/03.png' alt='Avatar' />
-          <AvatarFallback>IN</AvatarFallback>
-        </Avatar>
-        <div className='flex flex-1 flex-wrap items-center justify-between'>
-          <div className='space-y-1'>
-            <p className='text-sm leading-none font-medium'>Isabella Nguyen</p>
-            <p className='text-sm text-muted-foreground'>
-              isabella.nguyen@email.com
-            </p>
-          </div>
-          <div className='font-medium'>+$299.00</div>
-        </div>
-      </div>
-
-      <div className='flex items-center gap-4'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/04.png' alt='Avatar' />
-          <AvatarFallback>WK</AvatarFallback>
-        </Avatar>
-        <div className='flex flex-1 flex-wrap items-center justify-between'>
-          <div className='space-y-1'>
-            <p className='text-sm leading-none font-medium'>William Kim</p>
-            <p className='text-sm text-muted-foreground'>will@email.com</p>
-          </div>
-          <div className='font-medium'>+$99.00</div>
-        </div>
-      </div>
-
-      <div className='flex items-center gap-4'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/05.png' alt='Avatar' />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className='flex flex-1 flex-wrap items-center justify-between'>
-          <div className='space-y-1'>
-            <p className='text-sm leading-none font-medium'>Sofia Davis</p>
-            <p className='text-sm text-muted-foreground'>
-              sofia.davis@email.com
-            </p>
-          </div>
-          <div className='font-medium'>+$39.00</div>
-        </div>
-      </div>
+      ))}
     </div>
   )
 }

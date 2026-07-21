@@ -31,9 +31,15 @@ type DataTableProps = {
   data: User[]
   search: Record<string, unknown>
   navigate: NavigateFn
+  onOpenAudit?: (radicado: string) => void
 }
 
-export function UsersTable({ data, search, navigate }: DataTableProps) {
+export function UsersTable({
+  data,
+  search,
+  navigate,
+  onOpenAudit,
+}: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -154,7 +160,25 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className={cn('group/row', onOpenAudit && 'cursor-pointer')}
+                  tabIndex={0}
+                  onClick={(event) => {
+                    const target = event.target as HTMLElement
+                    if (
+                      target.closest(
+                        'button,a,input,[role="checkbox"],[data-row-action]'
+                      )
+                    ) {
+                      return
+                    }
+
+                    onOpenAudit?.(row.original.username)
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      onOpenAudit?.(row.original.username)
+                    }
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

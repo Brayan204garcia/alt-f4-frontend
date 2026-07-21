@@ -45,8 +45,8 @@ export function ApiKeyForm() {
         <KeyRound />
         <AlertTitle>Conexion por API</AlertTitle>
         <AlertDescription>
-          Usa esta clave para enviar historia clinica y prefactura desde sistemas
-          externos. Guardala en un lugar seguro.
+          Usa esta clave para enviar historia clinica y prefactura desde
+          sistemas externos. Guardala en un lugar seguro.
         </AlertDescription>
       </Alert>
 
@@ -61,7 +61,7 @@ export function ApiKeyForm() {
         </CardHeader>
         <CardContent className='space-y-4'>
           <div className='space-y-2'>
-            <Label htmlFor='api-key'>API Key</Label>
+            <Label htmlFor='api-key'>Clave API</Label>
             <div className='flex gap-2'>
               <Input
                 id='api-key'
@@ -75,9 +75,13 @@ export function ApiKeyForm() {
                 size='icon'
                 disabled={!apiKey}
                 onClick={handleCopy}
-                title='Copiar API Key'
+                title='Copiar clave API'
               >
-                {copied ? <Check className='size-4' /> : <Copy className='size-4' />}
+                {copied ? (
+                  <Check className='size-4' />
+                ) : (
+                  <Copy className='size-4' />
+                )}
               </Button>
             </div>
           </div>
@@ -85,7 +89,7 @@ export function ApiKeyForm() {
           <div className='flex flex-wrap gap-2'>
             <Button type='button' onClick={handleGenerate}>
               <KeyRound className='size-4' />
-              Generar API Key
+              Generar clave API
             </Button>
             <Button
               type='button'

@@ -2,39 +2,39 @@ import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 const data = [
   {
-    name: 'Mon',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Lun',
+    cruces: 4,
+    alertas: 2,
   },
   {
-    name: 'Tue',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Mar',
+    cruces: 6,
+    alertas: 3,
   },
   {
-    name: 'Wed',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Mie',
+    cruces: 5,
+    alertas: 2,
   },
   {
-    name: 'Thu',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Jue',
+    cruces: 8,
+    alertas: 4,
   },
   {
-    name: 'Fri',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Vie',
+    cruces: 7,
+    alertas: 3,
   },
   {
-    name: 'Sat',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Sab',
+    cruces: 3,
+    alertas: 1,
   },
   {
-    name: 'Sun',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
+    name: 'Dom',
+    cruces: 2,
+    alertas: 1,
   },
 ]
 
@@ -57,7 +57,7 @@ export function AnalyticsChart() {
         />
         <Area
           type='monotone'
-          dataKey='clicks'
+          dataKey='cruces'
           stroke='currentColor'
           className='text-primary'
           fill='currentColor'
@@ -65,7 +65,7 @@ export function AnalyticsChart() {
         />
         <Area
           type='monotone'
-          dataKey='uniques'
+          dataKey='alertas'
           stroke='currentColor'
           className='text-muted-foreground'
           fill='currentColor'

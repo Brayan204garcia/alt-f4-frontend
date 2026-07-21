@@ -25,8 +25,8 @@ type AppType = 'all' | 'connected' | 'notConnected'
 
 const appText = new Map<AppType, string>([
   ['all', 'Todas'],
-  ['connected', 'Connected'],
-  ['notConnected', 'Not Connected'],
+  ['connected', 'Conectadas'],
+  ['notConnected', 'No conectadas'],
 ])
 
 export function Apps() {
@@ -113,8 +113,8 @@ export function Apps() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value='all'>Todas</SelectItem>
-                <SelectItem value='connected'>Connected</SelectItem>
-                <SelectItem value='notConnected'>Not Connected</SelectItem>
+                <SelectItem value='connected'>Conectadas</SelectItem>
+                <SelectItem value='notConnected'>No conectadas</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -129,13 +129,13 @@ export function Apps() {
               <SelectItem value='asc'>
                 <div className='flex items-center gap-4'>
                   <ArrowUpAZ size={16} />
-                  <span>Ascending</span>
+                  <span>Ascendente</span>
                 </div>
               </SelectItem>
               <SelectItem value='desc'>
                 <div className='flex items-center gap-4'>
                   <ArrowDownAZ size={16} />
-                  <span>Descending</span>
+                  <span>Descendente</span>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -159,7 +159,7 @@ export function Apps() {
                   size='sm'
                   className={`${app.connected ? 'border border-blue-300 bg-blue-50 hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900' : ''}`}
                 >
-                  {app.connected ? 'Connected' : 'Connect'}
+                  {app.connected ? 'Conectada' : 'Conectar'}
                 </Button>
               </div>
               <div>

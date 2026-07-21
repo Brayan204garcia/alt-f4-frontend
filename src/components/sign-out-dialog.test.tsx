@@ -37,7 +37,7 @@ describe('SignOutDialog', () => {
 
     expect(reset).toHaveBeenCalledOnce()
     expect(navigate).toHaveBeenCalledWith({
-      to: '/sign-in',
+      to: '/sign-in-2',
       search: { redirect: MOCK_HREF },
       replace: true,
     })

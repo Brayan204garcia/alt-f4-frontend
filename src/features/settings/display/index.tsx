@@ -4,8 +4,8 @@ import { DisplayForm } from './display-form'
 export function SettingsDisplay() {
   return (
     <ContentSection
-      title='Display'
-      desc="Turn items on or off to control what's displayed in the app."
+      title='Visualizacion'
+      desc='Activa o desactiva elementos visibles dentro de la aplicacion.'
     >
       <DisplayForm />
     </ContentSection>

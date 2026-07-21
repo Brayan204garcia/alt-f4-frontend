@@ -22,7 +22,7 @@ type SidebarNavProps = React.HTMLAttributes<HTMLElement> & {
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const [val, setVal] = useState(pathname ?? '/settings')
+  const [val, setVal] = useState(pathname ?? '/configuracion')
 
   const handleSelect = (e: string) => {
     setVal(e)
@@ -34,7 +34,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       <div className='p-1 md:hidden'>
         <Select value={val} onValueChange={handleSelect}>
           <SelectTrigger className='h-12 sm:w-48'>
-            <SelectValue placeholder='Theme' />
+            <SelectValue placeholder='Selecciona una seccion' />
           </SelectTrigger>
           <SelectContent>
             {items.map((item) => (

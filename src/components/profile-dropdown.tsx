@@ -40,30 +40,30 @@ export function ProfileDropdown() {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <Link to='/settings'>
-                Profile
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+              <Link to='/configuracion'>
+                Perfil
+                <DropdownMenuShortcut>Ctrl P</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to='/settings'>
-                Billing
-                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+              <Link to='/configuracion/cuenta'>
+                Cuenta
+                <DropdownMenuShortcut>Ctrl C</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to='/settings'>
-                Settings
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+              <Link to='/configuracion'>
+                Configuracion
+                <DropdownMenuShortcut>Ctrl S</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
+            <DropdownMenuItem>Nuevo equipo</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant='destructive' onClick={() => setOpen(true)}>
-            Sign out
+            Cerrar sesion
             <DropdownMenuShortcut className='text-current'>
-              ⇧⌘Q
+              Ctrl Q
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
