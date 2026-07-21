@@ -191,11 +191,6 @@ function ThemeConfig() {
       >
         {[
           {
-            value: 'system',
-            label: 'Sistema',
-            icon: IconThemeSystem,
-          },
-          {
             value: 'light',
             label: 'Claro',
             icon: IconThemeLight,
@@ -204,6 +199,11 @@ function ThemeConfig() {
             value: 'dark',
             label: 'Oscuro',
             icon: IconThemeDark,
+          },
+          {
+            value: 'system',
+            label: 'Sistema',
+            icon: IconThemeSystem,
           },
         ].map((item) => (
           <RadioGroupItem key={item.value} item={item} isTheme />
