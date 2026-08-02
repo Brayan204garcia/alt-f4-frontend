@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as authSignIn2RouteImport } from './routes/(auth)/sign-in-2'
 import { Route as AuthenticatedConfiguracionRouteRouteImport } from './routes/_authenticated/configuracion/route'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedRadicadosApiIndexRouteImport } from './routes/_authenticated/radicados-api/index'
@@ -31,11 +30,6 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const authSignIn2Route = authSignIn2RouteImport.update({
-  id: '/(auth)/sign-in-2',
-  path: '/sign-in-2',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedConfiguracionRouteRoute =
   AuthenticatedConfiguracionRouteRouteImport.update({
@@ -99,7 +93,6 @@ const AuthenticatedConfiguracionClaveApiRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
-  '/sign-in-2': typeof authSignIn2Route
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
@@ -111,7 +104,6 @@ export interface FileRoutesByFullPath {
   '/tasks/': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRoutesByTo {
-  '/sign-in-2': typeof authSignIn2Route
   '/': typeof AuthenticatedIndexRoute
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
@@ -127,7 +119,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
-  '/(auth)/sign-in-2': typeof authSignIn2Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
   '/_authenticated/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
@@ -144,7 +135,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/configuracion'
-    | '/sign-in-2'
     | '/configuracion/clave-api'
     | '/radicados-api/$radicado'
     | '/auditor-ia/'
@@ -156,7 +146,6 @@ export interface FileRouteTypes {
     | '/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/sign-in-2'
     | '/'
     | '/configuracion/clave-api'
     | '/radicados-api/$radicado'
@@ -171,7 +160,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/_authenticated/configuracion'
-    | '/(auth)/sign-in-2'
     | '/_authenticated/'
     | '/_authenticated/configuracion/clave-api'
     | '/_authenticated/radicados-api/$radicado'
@@ -186,7 +174,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  authSignIn2Route: typeof authSignIn2Route
 }
 
 declare module '@tanstack/react-router' {
@@ -204,13 +191,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/(auth)/sign-in-2': {
-      id: '/(auth)/sign-in-2'
-      path: '/sign-in-2'
-      fullPath: '/sign-in-2'
-      preLoaderRoute: typeof authSignIn2RouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/configuracion': {
       id: '/_authenticated/configuracion'
@@ -333,7 +313,6 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  authSignIn2Route: authSignIn2Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
