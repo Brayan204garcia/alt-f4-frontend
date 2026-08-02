@@ -268,23 +268,6 @@ const PDF_MAX_POLL_ATTEMPTS = 120
 const DEFAULT_FETCH_TIMEOUT_MS = 60000
 const CASE_ERROR_STATES = new Set(['error', 'fallido'])
 
-const sampleClinicalRecord = `Paciente femenino de 62 anos.
-Ingreso: 10/07/2026. Egreso: 12/07/2026.
-Diagnostico: neumonia adquirida en comunidad.
-Evolucion: manejo en hospitalizacion general, oxigeno por canula nasal, ceftriaxona 1 g cada 24 horas y terapia respiratoria.
-Soportes: hemograma, radiografia de torax y valoracion por medicina interna.
-No se documentan servicios de alta complejidad, estudios avanzados, intervenciones quirurgicas ni terapias especiales.`
-
-const samplePreinvoice = `Prefactura ALT-F4-SIC.
-Estancia hospitalaria general x 2 dias.
-Unidad de cuidados intensivos UCI x 1 dia.
-Ceftriaxona 1 g x 3 dosis.
-Terapia respiratoria x 2 sesiones.
-Resonancia magnetica de torax.
-Medicamento alto costo: pembrolizumab 200 mg.
-Honorarios cirugia menor.
-Interconsulta cardiologia.`
-
 const auditRules: AuditRule[] = [
   {
     id: 'uci-without-support',
