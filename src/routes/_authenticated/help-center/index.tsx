@@ -1,12 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { openWelcomeModal } from '@/components/welcome-modal'
 
 export const Route = createFileRoute('/_authenticated/help-center/')({
   component: AboutUs,
@@ -44,14 +42,6 @@ function AboutUs() {
               </div>
             </div>
           </div>
-
-          <Button
-            onClick={() => openWelcomeModal()}
-            className='bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold shadow-md shrink-0'
-          >
-            <Sparkles className='size-4 me-2' />
-            Ver Presentación del Sistema
-          </Button>
         </section>
 
         <section className='space-y-4'>
