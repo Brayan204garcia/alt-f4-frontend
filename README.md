@@ -77,7 +77,11 @@ Comandos opcionales con Wrangler:
 npm run preview:cloudflare
 npm run deploy:cloudflare
 ```
+EQUIPO:
 
-## Contexto academico
+MICHEL
+JESUS
+JUAN
+BRAYAN
+ANDRES
 
-Este proyecto fue desarrollado con fines academicos, demostrativos e informativos dentro del reto "Auditor medico digital".
