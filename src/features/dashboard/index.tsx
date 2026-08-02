@@ -13,7 +13,6 @@ import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { TopNav } from '@/components/layout/top-nav'
-import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { users } from '../users/data/users'
@@ -63,7 +62,6 @@ export function Dashboard() {
         <Search />
         <ThemeSwitch />
         <ConfigDrawer />
-        <ProfileDropdown />
       </Header>
 
       {/* ===== Main ===== */}
@@ -82,9 +80,6 @@ export function Dashboard() {
             <TabsList>
               <TabsTrigger value='overview'>Resumen</TabsTrigger>
               <TabsTrigger value='analytics'>Notificaciones</TabsTrigger>
-              <TabsTrigger value='reports' disabled>
-                Reportes
-              </TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value='overview' className='space-y-4'>
@@ -156,7 +151,7 @@ export function Dashboard() {
                       Auditoria asistida para pertinencia, soportes y valores.
                     </p>
                     <div className='flex flex-wrap gap-2'>
-                      <Button onClick={() => navigate({ to: '/chats' })}>
+                      <Button onClick={() => navigate({ to: '/auditor-ia' })}>
                         <BrainCircuit className='size-4' />
                         Iniciar diagnostico
                       </Button>

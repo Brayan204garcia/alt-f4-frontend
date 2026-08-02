@@ -1,14 +1,13 @@
 import { Link } from '@tanstack/react-router'
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
+  KeyRound,
   LogOut,
   Sparkles,
 } from 'lucide-react'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { openWelcomeModal } from '@/components/welcome-modal'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -79,29 +78,17 @@ export function NavUser({ user }: NavUserProps) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => openWelcomeModal()}>
                   <Sparkles />
-                  Mejorar plan
+                  Ver Guía de Bienvenida
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                  <Link to='/configuracion/cuenta'>
-                    <BadgeCheck />
-                    Cuenta
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to='/configuracion'>
-                    <CreditCard />
-                    Perfil
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to='/configuracion/notificaciones'>
-                    <Bell />
-                    Notificaciones
+                  <Link to='/configuracion/clave-api'>
+                    <KeyRound />
+                    Clave API
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>

@@ -23,7 +23,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
-import { priorities, statuses } from '../data/data'
 import { type Task } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
 import { tasksColumns as columns } from './tasks-columns'
@@ -59,10 +58,7 @@ export function TasksTable({ data }: DataTableProps) {
     navigate: route.useNavigate(),
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: true, key: 'filter' },
-    columnFilters: [
-      { columnId: 'status', searchKey: 'status', type: 'array' },
-      { columnId: 'priority', searchKey: 'priority', type: 'array' },
-    ],
+    columnFilters: [],
   })
 
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -82,11 +78,10 @@ export function TasksTable({ data }: DataTableProps) {
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     globalFilterFn: (row, _columnId, filterValue) => {
-      const id = String(row.getValue('id')).toLowerCase()
       const title = String(row.getValue('title')).toLowerCase()
       const searchValue = String(filterValue).toLowerCase()
 
-      return id.includes(searchValue) || title.includes(searchValue)
+      return title.includes(searchValue)
     },
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -113,19 +108,8 @@ export function TasksTable({ data }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filtrar por titulo o ID...'
-        filters={[
-          {
-            columnId: 'status',
-            title: 'Estado',
-            options: statuses,
-          },
-          {
-            columnId: 'priority',
-            title: 'Prioridad',
-            options: priorities,
-          },
-        ]}
+        searchPlaceholder='Filtrar por descripción...'
+        showViewOptions={false}
       />
       <div className='overflow-hidden rounded-md border'>
         <Table className='min-w-xl'>

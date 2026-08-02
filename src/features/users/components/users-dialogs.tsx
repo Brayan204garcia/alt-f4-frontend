@@ -1,3 +1,5 @@
+import { type CasoAuditoriaTablaItem, type User } from '../data/schema'
+import { ModalDetalleCaso } from './modal-detalle-caso'
 import { UsersActionDialog } from './users-action-dialog'
 import { UsersDeleteDialog } from './users-delete-dialog'
 import { UsersInviteDialog } from './users-invite-dialog'
@@ -7,6 +9,16 @@ export function UsersDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useUsers()
   return (
     <>
+      <ModalDetalleCaso
+        open={open === 'detail'}
+        onOpenChange={() => setOpen('detail')}
+        caso={
+          currentRow && 'glosas_resumen' in currentRow
+            ? (currentRow as CasoAuditoriaTablaItem)
+            : null
+        }
+      />
+
       <UsersActionDialog
         key='user-add'
         open={open === 'add'}
@@ -19,7 +31,7 @@ export function UsersDialogs() {
         onOpenChange={() => setOpen('invite')}
       />
 
-      {currentRow && (
+      {currentRow && 'firstName' in currentRow && (
         <>
           <UsersActionDialog
             key={`user-edit-${currentRow.id}`}
@@ -30,7 +42,7 @@ export function UsersDialogs() {
                 setCurrentRow(null)
               }, 500)
             }}
-            currentRow={currentRow}
+            currentRow={currentRow as User}
           />
 
           <UsersDeleteDialog
@@ -42,7 +54,7 @@ export function UsersDialogs() {
                 setCurrentRow(null)
               }, 500)
             }}
-            currentRow={currentRow}
+            currentRow={currentRow as User}
           />
         </>
       )}

@@ -1,26 +1,10 @@
 import {
-  Construction,
-  LayoutDashboard,
-  Monitor,
-  Bug,
   ListTodo,
-  FileX,
   HelpCircle,
-  Lock,
-  Bell,
-  Package,
-  Palette,
-  ServerOff,
-  Settings,
-  Wrench,
-  UserCog,
-  UserX,
   Users,
   KeyRound,
-  MessagesSquare,
-  AudioWaveform,
+  BrainCircuit,
   Command,
-  GalleryVerticalEnd,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -32,19 +16,9 @@ export const sidebarData: SidebarData = {
   },
   teams: [
     {
-      name: 'Auditor Medico IA',
+      name: 'Alt-F4 IA',
       logo: Command,
-      plan: 'ALT-F4-SIC-2026',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
+      plan: '',
     },
   ],
   navGroups: [
@@ -52,15 +26,9 @@ export const sidebarData: SidebarData = {
       title: 'General',
       items: [
         {
-          title: 'Panel',
-          url: '/',
-          icon: LayoutDashboard,
-        },
-        {
           title: 'Auditor IA',
-          url: '/chats',
-          badge: 'ML',
-          icon: MessagesSquare,
+          url: '/auditor-ia',
+          icon: BrainCircuit,
         },
         {
           title: 'Auditorias Api',
@@ -68,50 +36,9 @@ export const sidebarData: SidebarData = {
           icon: Users,
         },
         {
-          title: 'Normativas',
-          url: '/apps',
-          icon: Package,
-        },
-        {
-          title: 'Tareas',
+          title: 'Glosas',
           url: '/tasks',
           icon: ListTodo,
-        },
-      ],
-    },
-    {
-      title: 'Paginas',
-      items: [
-        {
-          title: 'Errores',
-          icon: Bug,
-          items: [
-            {
-              title: 'No autorizado',
-              url: '/errors/unauthorized',
-              icon: Lock,
-            },
-            {
-              title: 'Prohibido',
-              url: '/errors/forbidden',
-              icon: UserX,
-            },
-            {
-              title: 'No encontrado',
-              url: '/errors/not-found',
-              icon: FileX,
-            },
-            {
-              title: 'Metricas Modelo',
-              url: '/errors/internal-server-error',
-              icon: ServerOff,
-            },
-            {
-              title: 'Mantenimiento',
-              url: '/errors/maintenance-error',
-              icon: Construction,
-            },
-          ],
         },
       ],
     },
@@ -119,43 +46,12 @@ export const sidebarData: SidebarData = {
       title: 'Otros',
       items: [
         {
-          title: 'Configuracion',
-          icon: Settings,
-          items: [
-            {
-              title: 'Perfil',
-              url: '/configuracion',
-              icon: UserCog,
-            },
-            {
-              title: 'Cuenta',
-              url: '/configuracion/cuenta',
-              icon: Wrench,
-            },
-            {
-              title: 'Apariencia',
-              url: '/configuracion/apariencia',
-              icon: Palette,
-            },
-            {
-              title: 'Notificaciones',
-              url: '/configuracion/notificaciones',
-              icon: Bell,
-            },
-            {
-              title: 'Visualizacion',
-              url: '/configuracion/visualizacion',
-              icon: Monitor,
-            },
-            {
-              title: 'Clave API',
-              url: '/configuracion/clave-api',
-              icon: KeyRound,
-            },
-          ],
+          title: 'Clave API',
+          url: '/configuracion/clave-api',
+          icon: KeyRound,
         },
         {
-          title: 'Sobre Nosotros',
+          title: 'Equipo',
           url: '/help-center',
           icon: HelpCircle,
         },

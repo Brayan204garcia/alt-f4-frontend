@@ -11,8 +11,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type NavigateFn, useTableUrlState } from '@/hooks/use-table-url-state'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -22,16 +25,19 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
-import { roles } from '../data/data'
-import { type User } from '../data/schema'
+import { type CasoAuditoriaTablaItem } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
 import { usersColumns as columns } from './users-columns'
 
 type DataTableProps = {
-  data: User[]
+  data: CasoAuditoriaTablaItem[]
   search: Record<string, unknown>
   navigate: NavigateFn
   onOpenAudit?: (radicado: string) => void
+  isLoading?: boolean
+  error?: Error | null
+  total?: number
+  pageCount?: number
 }
 
 export function UsersTable({
@@ -39,17 +45,16 @@ export function UsersTable({
   search,
   navigate,
   onOpenAudit,
+  isLoading = false,
+  error = null,
+  pageCount,
 }: DataTableProps) {
   // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
 
-  // Local state management for table (uncomment to use local-only state, not synced with URL)
-  // const [columnFilters, onColumnFiltersChange] = useState<ColumnFiltersState>([])
-  // const [pagination, onPaginationChange] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
-
-  // Synced with URL states (keys/defaults mirror users route search schema)
+  // Synced with URL states
   const {
     columnFilters,
     onColumnFiltersChange,
@@ -62,10 +67,18 @@ export function UsersTable({
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
     columnFilters: [
-      // username per-column text filter
-      { columnId: 'username', searchKey: 'username', type: 'string' },
-      { columnId: 'status', searchKey: 'status', type: 'array' },
-      { columnId: 'role', searchKey: 'role', type: 'array' },
+      { columnId: 'id', searchKey: 'id', type: 'string' },
+      { columnId: 'es_consistente', searchKey: 'es_consistente', type: 'array' },
+      {
+        columnId: 'severidad_maxima',
+        searchKey: 'severidad_maxima',
+        type: 'array',
+      },
+      {
+        columnId: 'estado_analisis',
+        searchKey: 'estado_analisis',
+        type: 'array',
+      },
     ],
   })
 
@@ -73,6 +86,9 @@ export function UsersTable({
   const table = useReactTable({
     data,
     columns,
+    pageCount: pageCount ?? -1,
+    manualPagination: true,
+    manualFiltering: true,
     state: {
       sorting,
       pagination,
@@ -95,37 +111,54 @@ export function UsersTable({
   })
 
   useEffect(() => {
-    ensurePageInRange(table.getPageCount())
-  }, [table, ensurePageInRange])
+    if (pageCount && pageCount > 0) {
+      ensurePageInRange(pageCount)
+    }
+  }, [table, ensurePageInRange, pageCount])
 
   return (
     <div
       className={cn(
-        'max-sm:has-[div[role="toolbar"]]:mb-16', // Add margin bottom to the table on mobile when the toolbar is visible
+        'max-sm:has-[div[role="toolbar"]]:mb-16',
         'flex flex-1 flex-col gap-4'
       )}
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filtrar auditorias...'
-        searchKey='username'
+        searchPlaceholder='Buscar por radicado, paciente o EPS...'
+        searchKey='id'
         filters={[
           {
-            columnId: 'status',
-            title: 'Estado',
+            columnId: 'es_consistente',
+            title: 'Consistencia',
             options: [
-              { label: 'Inconsistente', value: 'inconsistente' },
-              { label: 'Consistente', value: 'consistente' },
-              { label: 'Pendiente', value: 'pendiente' },
+              { label: 'Consistente', value: 'true' },
+              { label: 'Inconsistente', value: 'false' },
             ],
           },
           {
-            columnId: 'role',
+            columnId: 'severidad_maxima',
             title: 'Severidad',
-            options: roles.map((role) => ({ ...role })),
+            options: [
+              { label: 'Alta', value: 'alta' },
+              { label: 'Media', value: 'media' },
+              { label: 'Baja', value: 'baja' },
+            ],
           },
         ]}
       />
+
+      {error && (
+        <Alert variant='destructive' className='my-2'>
+          <AlertCircle className='h-4 w-4' />
+          <AlertTitle>Error al cargar datos</AlertTitle>
+          <AlertDescription>
+            {error.message ||
+              'Ocurrió un error al obtener la lista de casos auditados.'}
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
@@ -155,7 +188,17 @@ export function UsersTable({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <TableRow key={index}>
+                  {columns.map((_, colIndex) => (
+                    <TableCell key={colIndex}>
+                      <Skeleton className='h-6 w-full' />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -166,17 +209,17 @@ export function UsersTable({
                     const target = event.target as HTMLElement
                     if (
                       target.closest(
-                        'button,a,input,[role="checkbox"],[data-row-action]'
+                        'button,a,input,[role="checkbox"],[data-row-action],[data-slot="popover-trigger"]'
                       )
                     ) {
                       return
                     }
 
-                    onOpenAudit?.(row.original.username)
+                    onOpenAudit?.(row.original.id)
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {
-                      onOpenAudit?.(row.original.username)
+                      onOpenAudit?.(row.original.id)
                     }
                   }}
                 >

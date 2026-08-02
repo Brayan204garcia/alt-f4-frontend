@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LogoAltF4 } from '@/assets/logo-alt-f4'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -12,21 +13,20 @@ import { Button } from '../ui/button'
 export function AppTitle() {
   const { setOpenMobile } = useSidebar()
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
+    <SidebarMenu className='w-full'>
+      <SidebarMenuItem className='w-full'>
         <SidebarMenuButton
           size='lg'
-          className='gap-0 py-0 hover:bg-transparent active:bg-transparent'
+          className='gap-0 py-0.5 h-auto hover:bg-transparent active:bg-transparent w-full min-h-0'
           asChild
         >
-          <div>
+          <div className='flex items-center justify-between w-full py-0 my-0'>
             <Link
               to='/'
               onClick={() => setOpenMobile(false)}
-              className='grid flex-1 text-start text-sm leading-tight'
+              className='flex items-center py-0 px-1 w-full'
             >
-              <span className='truncate font-bold'>Auditor Medico IA</span>
-              <span className='truncate text-xs'>ALT-F4-SIC-2026</span>
+              <LogoAltF4 className='w-full h-auto max-h-14' />
             </Link>
             <ToggleSidebar />
           </div>

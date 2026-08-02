@@ -11,26 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as errors503RouteImport } from './routes/(errors)/503'
-import { Route as errors500RouteImport } from './routes/(errors)/500'
-import { Route as errors404RouteImport } from './routes/(errors)/404'
-import { Route as errors403RouteImport } from './routes/(errors)/403'
-import { Route as errors401RouteImport } from './routes/(errors)/401'
 import { Route as authSignIn2RouteImport } from './routes/(auth)/sign-in-2'
 import { Route as AuthenticatedConfiguracionRouteRouteImport } from './routes/_authenticated/configuracion/route'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedRadicadosApiIndexRouteImport } from './routes/_authenticated/radicados-api/index'
+import { Route as AuthenticatedMetricasModeloIndexRouteImport } from './routes/_authenticated/metricas-modelo/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedConfiguracionIndexRouteImport } from './routes/_authenticated/configuracion/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
-import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
+import { Route as AuthenticatedAuditorIaIndexRouteImport } from './routes/_authenticated/auditor-ia/index'
 import { Route as AuthenticatedRadicadosApiRadicadoRouteImport } from './routes/_authenticated/radicados-api/$radicado'
-import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
-import { Route as AuthenticatedConfiguracionVisualizacionRouteImport } from './routes/_authenticated/configuracion/visualizacion'
-import { Route as AuthenticatedConfiguracionNotificacionesRouteImport } from './routes/_authenticated/configuracion/notificaciones'
-import { Route as AuthenticatedConfiguracionCuentaRouteImport } from './routes/_authenticated/configuracion/cuenta'
 import { Route as AuthenticatedConfiguracionClaveApiRouteImport } from './routes/_authenticated/configuracion/clave-api'
-import { Route as AuthenticatedConfiguracionAparienciaRouteImport } from './routes/_authenticated/configuracion/apariencia'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -40,31 +31,6 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const errors503Route = errors503RouteImport.update({
-  id: '/(errors)/503',
-  path: '/503',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const errors500Route = errors500RouteImport.update({
-  id: '/(errors)/500',
-  path: '/500',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const errors404Route = errors404RouteImport.update({
-  id: '/(errors)/404',
-  path: '/404',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const errors403Route = errors403RouteImport.update({
-  id: '/(errors)/403',
-  path: '/403',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const errors401Route = errors401RouteImport.update({
-  id: '/(errors)/401',
-  path: '/401',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const authSignIn2Route = authSignIn2RouteImport.update({
   id: '/(auth)/sign-in-2',
@@ -88,6 +54,12 @@ const AuthenticatedRadicadosApiIndexRoute =
     path: '/radicados-api/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMetricasModeloIndexRoute =
+  AuthenticatedMetricasModeloIndexRouteImport.update({
+    id: '/metricas-modelo/',
+    path: '/metricas-modelo/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
     id: '/help-center/',
@@ -105,40 +77,17 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
-  id: '/apps/',
-  path: '/apps/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
+const AuthenticatedAuditorIaIndexRoute =
+  AuthenticatedAuditorIaIndexRouteImport.update({
+    id: '/auditor-ia/',
+    path: '/auditor-ia/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRadicadosApiRadicadoRoute =
   AuthenticatedRadicadosApiRadicadoRouteImport.update({
     id: '/radicados-api/$radicado',
     path: '/radicados-api/$radicado',
     getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedErrorsErrorRoute =
-  AuthenticatedErrorsErrorRouteImport.update({
-    id: '/errors/$error',
-    path: '/errors/$error',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedConfiguracionVisualizacionRoute =
-  AuthenticatedConfiguracionVisualizacionRouteImport.update({
-    id: '/visualizacion',
-    path: '/visualizacion',
-    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
-  } as any)
-const AuthenticatedConfiguracionNotificacionesRoute =
-  AuthenticatedConfiguracionNotificacionesRouteImport.update({
-    id: '/notificaciones',
-    path: '/notificaciones',
-    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
-  } as any)
-const AuthenticatedConfiguracionCuentaRoute =
-  AuthenticatedConfiguracionCuentaRouteImport.update({
-    id: '/cuenta',
-    path: '/cuenta',
-    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
   } as any)
 const AuthenticatedConfiguracionClaveApiRoute =
   AuthenticatedConfiguracionClaveApiRouteImport.update({
@@ -146,55 +95,31 @@ const AuthenticatedConfiguracionClaveApiRoute =
     path: '/clave-api',
     getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
   } as any)
-const AuthenticatedConfiguracionAparienciaRoute =
-  AuthenticatedConfiguracionAparienciaRouteImport.update({
-    id: '/apariencia',
-    path: '/apariencia',
-    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/sign-in-2': typeof authSignIn2Route
-  '/401': typeof errors401Route
-  '/403': typeof errors403Route
-  '/404': typeof errors404Route
-  '/500': typeof errors500Route
-  '/503': typeof errors503Route
-  '/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
-  '/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
-  '/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
-  '/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
-  '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
-  '/apps/': typeof AuthenticatedAppsIndexRoute
+  '/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
   '/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/sign-in-2': typeof authSignIn2Route
-  '/401': typeof errors401Route
-  '/403': typeof errors403Route
-  '/404': typeof errors404Route
-  '/500': typeof errors500Route
-  '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
-  '/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
-  '/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
-  '/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
-  '/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
-  '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
-  '/apps': typeof AuthenticatedAppsIndexRoute
+  '/auditor-ia': typeof AuthenticatedAuditorIaIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/configuracion': typeof AuthenticatedConfiguracionIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/metricas-modelo': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api': typeof AuthenticatedRadicadosApiIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
 }
@@ -203,23 +128,14 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/(auth)/sign-in-2': typeof authSignIn2Route
-  '/(errors)/401': typeof errors401Route
-  '/(errors)/403': typeof errors403Route
-  '/(errors)/404': typeof errors404Route
-  '/(errors)/500': typeof errors500Route
-  '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_authenticated/configuracion/apariencia': typeof AuthenticatedConfiguracionAparienciaRoute
   '/_authenticated/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
-  '/_authenticated/configuracion/cuenta': typeof AuthenticatedConfiguracionCuentaRoute
-  '/_authenticated/configuracion/notificaciones': typeof AuthenticatedConfiguracionNotificacionesRoute
-  '/_authenticated/configuracion/visualizacion': typeof AuthenticatedConfiguracionVisualizacionRoute
-  '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
-  '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/_authenticated/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
 }
@@ -229,44 +145,26 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracion'
     | '/sign-in-2'
-    | '/401'
-    | '/403'
-    | '/404'
-    | '/500'
-    | '/503'
-    | '/configuracion/apariencia'
     | '/configuracion/clave-api'
-    | '/configuracion/cuenta'
-    | '/configuracion/notificaciones'
-    | '/configuracion/visualizacion'
-    | '/errors/$error'
     | '/radicados-api/$radicado'
-    | '/apps/'
+    | '/auditor-ia/'
     | '/chats/'
     | '/configuracion/'
     | '/help-center/'
+    | '/metricas-modelo/'
     | '/radicados-api/'
     | '/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sign-in-2'
-    | '/401'
-    | '/403'
-    | '/404'
-    | '/500'
-    | '/503'
     | '/'
-    | '/configuracion/apariencia'
     | '/configuracion/clave-api'
-    | '/configuracion/cuenta'
-    | '/configuracion/notificaciones'
-    | '/configuracion/visualizacion'
-    | '/errors/$error'
     | '/radicados-api/$radicado'
-    | '/apps'
+    | '/auditor-ia'
     | '/chats'
     | '/configuracion'
     | '/help-center'
+    | '/metricas-modelo'
     | '/radicados-api'
     | '/tasks'
   id:
@@ -274,23 +172,14 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/_authenticated/configuracion'
     | '/(auth)/sign-in-2'
-    | '/(errors)/401'
-    | '/(errors)/403'
-    | '/(errors)/404'
-    | '/(errors)/500'
-    | '/(errors)/503'
     | '/_authenticated/'
-    | '/_authenticated/configuracion/apariencia'
     | '/_authenticated/configuracion/clave-api'
-    | '/_authenticated/configuracion/cuenta'
-    | '/_authenticated/configuracion/notificaciones'
-    | '/_authenticated/configuracion/visualizacion'
-    | '/_authenticated/errors/$error'
     | '/_authenticated/radicados-api/$radicado'
-    | '/_authenticated/apps/'
+    | '/_authenticated/auditor-ia/'
     | '/_authenticated/chats/'
     | '/_authenticated/configuracion/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/metricas-modelo/'
     | '/_authenticated/radicados-api/'
     | '/_authenticated/tasks/'
   fileRoutesById: FileRoutesById
@@ -298,11 +187,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   authSignIn2Route: typeof authSignIn2Route
-  errors401Route: typeof errors401Route
-  errors403Route: typeof errors403Route
-  errors404Route: typeof errors404Route
-  errors500Route: typeof errors500Route
-  errors503Route: typeof errors503Route
 }
 
 declare module '@tanstack/react-router' {
@@ -320,41 +204,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/(errors)/503': {
-      id: '/(errors)/503'
-      path: '/503'
-      fullPath: '/503'
-      preLoaderRoute: typeof errors503RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(errors)/500': {
-      id: '/(errors)/500'
-      path: '/500'
-      fullPath: '/500'
-      preLoaderRoute: typeof errors500RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(errors)/404': {
-      id: '/(errors)/404'
-      path: '/404'
-      fullPath: '/404'
-      preLoaderRoute: typeof errors404RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(errors)/403': {
-      id: '/(errors)/403'
-      path: '/403'
-      fullPath: '/403'
-      preLoaderRoute: typeof errors403RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(errors)/401': {
-      id: '/(errors)/401'
-      path: '/401'
-      fullPath: '/401'
-      preLoaderRoute: typeof errors401RouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/(auth)/sign-in-2': {
       id: '/(auth)/sign-in-2'
@@ -384,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRadicadosApiIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/metricas-modelo/': {
+      id: '/_authenticated/metricas-modelo/'
+      path: '/metricas-modelo'
+      fullPath: '/metricas-modelo/'
+      preLoaderRoute: typeof AuthenticatedMetricasModeloIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
       path: '/help-center'
@@ -405,11 +261,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/apps/': {
-      id: '/_authenticated/apps/'
-      path: '/apps'
-      fullPath: '/apps/'
-      preLoaderRoute: typeof AuthenticatedAppsIndexRouteImport
+    '/_authenticated/auditor-ia/': {
+      id: '/_authenticated/auditor-ia/'
+      path: '/auditor-ia'
+      fullPath: '/auditor-ia/'
+      preLoaderRoute: typeof AuthenticatedAuditorIaIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/radicados-api/$radicado': {
@@ -419,34 +275,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRadicadosApiRadicadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/errors/$error': {
-      id: '/_authenticated/errors/$error'
-      path: '/errors/$error'
-      fullPath: '/errors/$error'
-      preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/configuracion/visualizacion': {
-      id: '/_authenticated/configuracion/visualizacion'
-      path: '/visualizacion'
-      fullPath: '/configuracion/visualizacion'
-      preLoaderRoute: typeof AuthenticatedConfiguracionVisualizacionRouteImport
-      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
-    }
-    '/_authenticated/configuracion/notificaciones': {
-      id: '/_authenticated/configuracion/notificaciones'
-      path: '/notificaciones'
-      fullPath: '/configuracion/notificaciones'
-      preLoaderRoute: typeof AuthenticatedConfiguracionNotificacionesRouteImport
-      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
-    }
-    '/_authenticated/configuracion/cuenta': {
-      id: '/_authenticated/configuracion/cuenta'
-      path: '/cuenta'
-      fullPath: '/configuracion/cuenta'
-      preLoaderRoute: typeof AuthenticatedConfiguracionCuentaRouteImport
-      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
-    }
     '/_authenticated/configuracion/clave-api': {
       id: '/_authenticated/configuracion/clave-api'
       path: '/clave-api'
@@ -454,37 +282,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConfiguracionClaveApiRouteImport
       parentRoute: typeof AuthenticatedConfiguracionRouteRoute
     }
-    '/_authenticated/configuracion/apariencia': {
-      id: '/_authenticated/configuracion/apariencia'
-      path: '/apariencia'
-      fullPath: '/configuracion/apariencia'
-      preLoaderRoute: typeof AuthenticatedConfiguracionAparienciaRouteImport
-      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
-    }
   }
 }
 
 interface AuthenticatedConfiguracionRouteRouteChildren {
-  AuthenticatedConfiguracionAparienciaRoute: typeof AuthenticatedConfiguracionAparienciaRoute
   AuthenticatedConfiguracionClaveApiRoute: typeof AuthenticatedConfiguracionClaveApiRoute
-  AuthenticatedConfiguracionCuentaRoute: typeof AuthenticatedConfiguracionCuentaRoute
-  AuthenticatedConfiguracionNotificacionesRoute: typeof AuthenticatedConfiguracionNotificacionesRoute
-  AuthenticatedConfiguracionVisualizacionRoute: typeof AuthenticatedConfiguracionVisualizacionRoute
   AuthenticatedConfiguracionIndexRoute: typeof AuthenticatedConfiguracionIndexRoute
 }
 
 const AuthenticatedConfiguracionRouteRouteChildren: AuthenticatedConfiguracionRouteRouteChildren =
   {
-    AuthenticatedConfiguracionAparienciaRoute:
-      AuthenticatedConfiguracionAparienciaRoute,
     AuthenticatedConfiguracionClaveApiRoute:
       AuthenticatedConfiguracionClaveApiRoute,
-    AuthenticatedConfiguracionCuentaRoute:
-      AuthenticatedConfiguracionCuentaRoute,
-    AuthenticatedConfiguracionNotificacionesRoute:
-      AuthenticatedConfiguracionNotificacionesRoute,
-    AuthenticatedConfiguracionVisualizacionRoute:
-      AuthenticatedConfiguracionVisualizacionRoute,
     AuthenticatedConfiguracionIndexRoute: AuthenticatedConfiguracionIndexRoute,
   }
 
@@ -496,11 +305,11 @@ const AuthenticatedConfiguracionRouteRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedConfiguracionRouteRoute: typeof AuthenticatedConfiguracionRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedRadicadosApiRadicadoRoute: typeof AuthenticatedRadicadosApiRadicadoRoute
-  AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedAuditorIaIndexRoute: typeof AuthenticatedAuditorIaIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedMetricasModeloIndexRoute: typeof AuthenticatedMetricasModeloIndexRoute
   AuthenticatedRadicadosApiIndexRoute: typeof AuthenticatedRadicadosApiIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
 }
@@ -509,12 +318,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConfiguracionRouteRoute:
     AuthenticatedConfiguracionRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedRadicadosApiRadicadoRoute:
     AuthenticatedRadicadosApiRadicadoRoute,
-  AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedAuditorIaIndexRoute: AuthenticatedAuditorIaIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedMetricasModeloIndexRoute: AuthenticatedMetricasModeloIndexRoute,
   AuthenticatedRadicadosApiIndexRoute: AuthenticatedRadicadosApiIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
 }
@@ -525,11 +334,6 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   authSignIn2Route: authSignIn2Route,
-  errors401Route: errors401Route,
-  errors403Route: errors403Route,
-  errors404Route: errors404Route,
-  errors500Route: errors500Route,
-  errors503Route: errors503Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

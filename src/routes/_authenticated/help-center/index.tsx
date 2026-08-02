@@ -1,35 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ImageIcon } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
-import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { openWelcomeModal } from '@/components/welcome-modal'
 
 export const Route = createFileRoute('/_authenticated/help-center/')({
   component: AboutUs,
 })
 
-const teamMembers = ['Michel', 'Brayan', 'Andres', 'Jesus', 'Juan']
-
-const partnerLogos = [
-  {
-    name: 'Samsung Innovation Campus',
-    url: 'https://urosario.edu.co/sites/default/files/styles/article_47_22_md/public/articles/2025-10/nota-samsung-innovation-campus.png',
-    featured: true,
-  },
-  {
-    name: 'Universidad del Rosario',
-    url: 'https://urosario.edu.co/sites/default/files/2025-04/logo_vertical_ur_rojo.png',
-  },
-  {
-    name: 'Health & Life IPS SAS',
-    url: 'https://www.elhospital.com/logos/profile/limage-11346.webp',
-  },
-]
+const teamMembers = ['Michel Pulistar', 'Andres Suarez', 'Brayan Garcia', 'Jesus Avendaño', 'Juan Zambrano']
 
 function AboutUs() {
   return (
@@ -38,84 +21,72 @@ function AboutUs() {
         <Search className='me-auto' />
         <ThemeSwitch />
         <ConfigDrawer />
-        <ProfileDropdown />
       </Header>
 
-      <Main className='space-y-5'>
-        <section className='border-b pb-5'>
-          <p className='text-sm font-medium tracking-wide text-muted-foreground uppercase'>
-            Sobre Nosotros
-          </p>
-          <h1 className='mt-2 text-3xl font-bold tracking-tight'>
-            GRUPO ALT-F4
-          </h1>
-          <div className='mt-4 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-3'>
-            <div className='rounded-md border bg-card p-3'>
-              SAMSUNG INNOVATION CAMPUS 2025 - 2026
-            </div>
-            <div className='rounded-md border bg-card p-3'>
-              RETO: Auditor médico digital
-            </div>
-            <div className='rounded-md border bg-card p-3'>
-              Health & Life IPS SAS
+      <Main className='space-y-8'>
+        <section className='border-b pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4'>
+          <div>
+            <p className='text-xs font-bold tracking-widest text-primary uppercase'>
+              Equipo
+            </p>
+            <h1 className='mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl'>
+              GRUPO ALT-F4 IA
+            </h1>
+            <div className='mt-4 grid gap-3 text-sm font-medium text-muted-foreground sm:grid-cols-2 lg:grid-cols-3'>
+              <div className='rounded-lg border bg-card/60 p-3.5 backdrop-blur-xs shadow-xs'>
+                SAMSUNG INNOVATION CAMPUS 2025 - 2026
+              </div>
+              <div className='rounded-lg border bg-card/60 p-3.5 backdrop-blur-xs shadow-xs'>
+                RETO: Auditor médico digital
+              </div>
+              <div className='rounded-lg border bg-card/60 p-3.5 backdrop-blur-xs shadow-xs'>
+                Health & Life IPS SAS
+              </div>
             </div>
           </div>
+
+          <Button
+            onClick={() => openWelcomeModal()}
+            className='bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold shadow-md shrink-0'
+          >
+            <Sparkles className='size-4 me-2' />
+            Ver Presentación del Sistema
+          </Button>
         </section>
 
-        <section>
-          <h2 className='text-xl font-semibold tracking-tight'>Integrantes</h2>
-          <div className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5'>
+        <section className='space-y-4'>
+          <h2 className='text-xl font-bold tracking-tight'>Equipo</h2>
+
+          <div className='grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
             {teamMembers.map((member) => (
-              <Card key={member} className='gap-0 overflow-hidden py-0'>
-                <div className='flex aspect-square items-center justify-center border-b bg-muted/40'>
-                  <ImageIcon className='size-10 text-muted-foreground' />
-                </div>
-                <CardHeader className='px-4 pt-4 pb-2'>
-                  <CardTitle className='text-base'>{member}</CardTitle>
-                </CardHeader>
-                <CardContent className='px-4 pt-0 pb-4'>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='w-full justify-center gap-2'
+              <div
+                key={member}
+                className='group flex items-center justify-between gap-4 rounded-xl border border-border/60 bg-card/80 p-3.5 px-4.5 backdrop-blur-xs transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-md dark:bg-card/40'
+              >
+                <span className='text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary'>
+                  {member}
+                </span>
+
+                <Button
+                  variant='outline'
+                  size='sm'
+                  className='h-8 shrink-0 justify-center gap-1.5 border-border/80 px-3 hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] transition-all duration-200 shadow-xs'
+                  asChild
+                >
+                  <a
+                    href='https://linkedin.com'
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
-                    <span className='flex size-4 items-center justify-center rounded-sm bg-[#0A66C2] text-[10px] leading-none font-bold text-white'>
+                    <span className='flex size-3.5 items-center justify-center rounded-xs bg-[#0A66C2] text-[9px] leading-none font-bold text-white'>
                       in
                     </span>
-                    LinkedIn
-                  </Button>
-                </CardContent>
-              </Card>
+                    <span className='text-xs font-medium'>LinkedIn</span>
+                  </a>
+                </Button>
+              </div>
             ))}
           </div>
-        </section>
-
-        <section className='space-y-4 border-t pt-5'>
-          <div>
-            <h2 className='text-xl font-semibold tracking-tight'>
-              Muchas gracias a:
-            </h2>
-          </div>
-
-          <div className='flex flex-wrap items-center justify-center gap-4'>
-            {partnerLogos.map((partner) => (
-              <img
-                key={partner.name}
-                src={partner.url}
-                alt={partner.name}
-                className={
-                  partner.featured
-                    ? 'max-h-28 w-72 object-contain'
-                    : 'max-h-20 w-36 object-contain'
-                }
-              />
-            ))}
-          </div>
-
-          <p className='mx-auto max-w-4xl text-center text-xs leading-5 text-muted-foreground'>
-            Los logos y marcas mostrados pertenecen a sus respectivos titulares.
-            Se usan unicamente con fines academicos y demostrativos.
-          </p>
         </section>
       </Main>
     </>

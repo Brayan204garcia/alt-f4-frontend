@@ -40,20 +40,8 @@ export function ProfileDropdown() {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <Link to='/configuracion'>
-                Perfil
-                <DropdownMenuShortcut>Ctrl P</DropdownMenuShortcut>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to='/configuracion/cuenta'>
-                Cuenta
-                <DropdownMenuShortcut>Ctrl C</DropdownMenuShortcut>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to='/configuracion'>
-                Configuracion
+              <Link to='/configuracion/clave-api'>
+                Configuracion (Clave API)
                 <DropdownMenuShortcut>Ctrl S</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>

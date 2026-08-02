@@ -123,9 +123,9 @@ describe('SearchProvider and CommandMenu', () => {
 
     await openCommandPalette(screen)
 
-    await userEvent.click(getByRole('option', { name: 'Configuracion Cuenta' }))
+    await userEvent.click(getByRole('option', { name: 'Configuracion Clave API' }))
 
-    expect(mocks.navigate).toHaveBeenCalledWith({ to: '/configuracion/cuenta' })
+    expect(mocks.navigate).toHaveBeenCalledWith({ to: '/configuracion/clave-api' })
     await expect
       .element(getByPlaceholder(COMMAND_MENU_PLACEHOLDER))
       .not.toBeInTheDocument()
