@@ -1,4 +1,4 @@
-export const tasks = [
+export const glosaRules = [
   {
     id: 'RES-001',
     title: 'Pertinencia de CUPS por Sexo',
@@ -84,3 +84,5 @@ export const tasks = [
     priority: 'high',
   },
 ]
+
+export const tasks = glosaRules
