@@ -38,6 +38,7 @@ import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { toast } from 'sonner'
 import { AdvertenciaCard, ClinicalDocumentCardV2, InvoiceDocumentCard } from './components/document-cards'
+import { AuditResultModal } from './components/audit-result-modal'
 import { API_BASE_URL } from '@/config/api'
 
 type DetectionLevel = 'Alta' | 'Media' | 'Baja'
@@ -2251,10 +2252,10 @@ export function Chats() {
   const [_caseStatus, setCaseStatus] = useState('')
   const [_auditEstado, setAuditEstado] = useState<string>('')
   const [_auditSummary, setAuditSummary] = useState<BackendResumen | null>(null)
-  const [_mlResult, setMlResult] = useState<ClasificacionML | null>(null)
+  const [mlResult, setMlResult] = useState<ClasificacionML | null>(null)
   const [analysis, setAnalysis] = useState<AnalysisState>(getAnalysisState)
   const [showHelp, setShowHelp] = useState(false)
-  const [_showResultModal, setShowResultModal] = useState(false)
+  const [showResultModal, setShowResultModal] = useState(false)
   const uploadControllers = useRef<Record<DocumentKind, AbortController | null>>({
     clinical: null,
     invoice: null,
@@ -3322,6 +3323,13 @@ export function Chats() {
           </div>
         </section>
       </Main>
+
+      <AuditResultModal
+        open={showResultModal}
+        onOpenChange={setShowResultModal}
+        isConsistent={detections.length === 0}
+        mlResult={mlResult}
+      />
     </>
   )
 }
