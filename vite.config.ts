@@ -24,7 +24,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_BASE_URL || 'http://185.253.153.67',
+        target: process.env.VITE_API_BASE_URL || 'https://api.bryan.lat',
         changeOrigin: true,
         secure: false,
       },
