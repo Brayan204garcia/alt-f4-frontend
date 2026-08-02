@@ -52,7 +52,7 @@ export const sidebarData: SidebarData = {
         },
         {
           title: 'Equipo',
-          url: '/help-center',
+          url: '/equipo',
           icon: HelpCircle,
         },
       ],

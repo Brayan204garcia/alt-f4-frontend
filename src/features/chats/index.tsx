@@ -131,15 +131,18 @@ type BackendResumen = {
 
 type ClasificacionML = {
   clasificacion?: 'CONSISTENTE' | 'INCONSISTENTE' | null
+  clasificacion_original_ml?: 'CONSISTENTE' | 'INCONSISTENTE' | null
+  interceptado_por_reglas?: boolean
+  mensaje_intercepcion?: string | null
   probabilidad_inconsistencia?: number | null
-  punto_operacion?: string | null
-  umbral_usado?: number | null
   alerta_cierta?: boolean
   condiciones_activas?: string[]
   explicaciones?: string[]
+  punto_operacion?: string | null
+  umbral_usado?: number | null
+  error?: string | null
   features_utilizadas?: Record<string, unknown> | null
   advertencias_derivacion?: string[]
-  error?: string | null
 }
 
 type AnalysisApiResult = {

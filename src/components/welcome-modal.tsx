@@ -181,7 +181,7 @@ export function WelcomeModal({
               size='sm'
               onClick={() => {
                 handleAccept()
-                navigate({ to: '/help-center' })
+                navigate({ to: '/equipo' })
               }}
               className='text-xs'
             >

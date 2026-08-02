@@ -15,7 +15,7 @@ import { Route as AuthenticatedConfiguracionRouteRouteImport } from './routes/_a
 import { Route as AuthenticatedResumenIndexRouteImport } from './routes/_authenticated/resumen/index'
 import { Route as AuthenticatedRadicadosApiIndexRouteImport } from './routes/_authenticated/radicados-api/index'
 import { Route as AuthenticatedMetricasModeloIndexRouteImport } from './routes/_authenticated/metricas-modelo/index'
-import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
+import { Route as AuthenticatedEquipoIndexRouteImport } from './routes/_authenticated/equipo/index'
 import { Route as AuthenticatedConfiguracionIndexRouteImport } from './routes/_authenticated/configuracion/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAuditorIaIndexRouteImport } from './routes/_authenticated/auditor-ia/index'
@@ -55,10 +55,10 @@ const AuthenticatedMetricasModeloIndexRoute =
     path: '/metricas-modelo/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedHelpCenterIndexRoute =
-  AuthenticatedHelpCenterIndexRouteImport.update({
-    id: '/help-center/',
-    path: '/help-center/',
+const AuthenticatedEquipoIndexRoute =
+  AuthenticatedEquipoIndexRouteImport.update({
+    id: '/equipo/',
+    path: '/equipo/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedConfiguracionIndexRoute =
@@ -99,7 +99,7 @@ export interface FileRoutesByFullPath {
   '/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
   '/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
-  '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/equipo/': typeof AuthenticatedEquipoIndexRoute
   '/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
   '/resumen/': typeof AuthenticatedResumenIndexRoute
@@ -111,7 +111,7 @@ export interface FileRoutesByTo {
   '/auditor-ia': typeof AuthenticatedAuditorIaIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/configuracion': typeof AuthenticatedConfiguracionIndexRoute
-  '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/equipo': typeof AuthenticatedEquipoIndexRoute
   '/metricas-modelo': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api': typeof AuthenticatedRadicadosApiIndexRoute
   '/resumen': typeof AuthenticatedResumenIndexRoute
@@ -126,7 +126,7 @@ export interface FileRoutesById {
   '/_authenticated/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/configuracion/': typeof AuthenticatedConfiguracionIndexRoute
-  '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/equipo/': typeof AuthenticatedEquipoIndexRoute
   '/_authenticated/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/_authenticated/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
   '/_authenticated/resumen/': typeof AuthenticatedResumenIndexRoute
@@ -141,7 +141,7 @@ export interface FileRouteTypes {
     | '/auditor-ia/'
     | '/chats/'
     | '/configuracion/'
-    | '/help-center/'
+    | '/equipo/'
     | '/metricas-modelo/'
     | '/radicados-api/'
     | '/resumen/'
@@ -153,7 +153,7 @@ export interface FileRouteTypes {
     | '/auditor-ia'
     | '/chats'
     | '/configuracion'
-    | '/help-center'
+    | '/equipo'
     | '/metricas-modelo'
     | '/radicados-api'
     | '/resumen'
@@ -167,7 +167,7 @@ export interface FileRouteTypes {
     | '/_authenticated/auditor-ia/'
     | '/_authenticated/chats/'
     | '/_authenticated/configuracion/'
-    | '/_authenticated/help-center/'
+    | '/_authenticated/equipo/'
     | '/_authenticated/metricas-modelo/'
     | '/_authenticated/radicados-api/'
     | '/_authenticated/resumen/'
@@ -221,11 +221,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMetricasModeloIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/help-center/': {
-      id: '/_authenticated/help-center/'
-      path: '/help-center'
-      fullPath: '/help-center/'
-      preLoaderRoute: typeof AuthenticatedHelpCenterIndexRouteImport
+    '/_authenticated/equipo/': {
+      id: '/_authenticated/equipo/'
+      path: '/equipo'
+      fullPath: '/equipo/'
+      preLoaderRoute: typeof AuthenticatedEquipoIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/configuracion/': {
@@ -289,7 +289,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRadicadosApiRadicadoRoute: typeof AuthenticatedRadicadosApiRadicadoRoute
   AuthenticatedAuditorIaIndexRoute: typeof AuthenticatedAuditorIaIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
-  AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedEquipoIndexRoute: typeof AuthenticatedEquipoIndexRoute
   AuthenticatedMetricasModeloIndexRoute: typeof AuthenticatedMetricasModeloIndexRoute
   AuthenticatedRadicadosApiIndexRoute: typeof AuthenticatedRadicadosApiIndexRoute
   AuthenticatedResumenIndexRoute: typeof AuthenticatedResumenIndexRoute
@@ -303,7 +303,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedRadicadosApiRadicadoRoute,
   AuthenticatedAuditorIaIndexRoute: AuthenticatedAuditorIaIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
-  AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedEquipoIndexRoute: AuthenticatedEquipoIndexRoute,
   AuthenticatedMetricasModeloIndexRoute: AuthenticatedMetricasModeloIndexRoute,
   AuthenticatedRadicadosApiIndexRoute: AuthenticatedRadicadosApiIndexRoute,
   AuthenticatedResumenIndexRoute: AuthenticatedResumenIndexRoute,
