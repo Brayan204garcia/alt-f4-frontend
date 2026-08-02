@@ -2329,7 +2329,7 @@ export function Chats() {
       message: 'Ejecutando análisis del caso en el backend...',
     })
 
-    const hasRealCase = Boolean(caseId && !caseId.startsWith('caso-ejemplo'))
+    const hasRealCase = Boolean(caseId)
 
     if (hasRealCase) {
       try {

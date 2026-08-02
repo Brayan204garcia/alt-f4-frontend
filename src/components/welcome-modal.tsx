@@ -101,12 +101,12 @@ export function WelcomeModal({
               <p className='text-muted-foreground leading-normal'>
                 Para realizar la validación y cruce automático en tiempo real mediante integración API, genere su <strong>API Key</strong> en el módulo de <em>Configuración (`/configuracion/clave-api`)</em>. Consulte la documentación interactiva de la API en:{' '}
                 <a
-                  href='http://localhost:8000/redoc#operation/health_health_get'
+                  href='https:api.bryan.lat/redoc#operation/health_health_get'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='text-primary underline font-semibold break-all'
                 >
-                  http://localhost:8000/redoc#operation/health_health_get
+                  https:api.bryan.lat/redoc#operation/health_health_get
                 </a>
               </p>
             </div>
@@ -151,7 +151,7 @@ export function WelcomeModal({
                   3. Seguimiento en Radicados y Glosas
                 </strong>
                 <p className='text-muted-foreground leading-normal'>
-                  Consulte el estado general en <em>Radicados API (`/radicados-api`)</em> y gestione tareas u observaciones en <em>Glosas (`/tasks`)</em>.
+                  Consulte el estado general en <em>Radicados API (`/radicados-api`)</em>.
                 </p>
               </div>
             </div>
