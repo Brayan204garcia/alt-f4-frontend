@@ -41,10 +41,19 @@ export function Users() {
       Array.isArray(search.estado_analisis) && search.estado_analisis.length > 0
         ? search.estado_analisis[0]
         : undefined
+    const searchText =
+      typeof search.id === 'string' && search.id.trim() !== ''
+        ? search.id.trim()
+        : undefined
 
     return {
       page,
       page_size,
+      search: searchText,
+      q: searchText,
+      query: searchText,
+      id: searchText,
+      radicado: searchText,
       es_consistente,
       severidad,
       resultado_estado,

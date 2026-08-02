@@ -1,49 +1,86 @@
-import { faker } from '@faker-js/faker'
-
-faker.seed(12345)
-
-const taskTitles = [
-  'Revisar cruce de historia clinica y prefactura',
-  'Validar soporte clinico de procedimiento',
-  'Actualizar regla de diagnostico relacionado',
-  'Documentar glosa por servicio no facturado',
-  'Revisar severidad de alerta media',
-  'Confirmar cantidad facturada contra cantidad realizada',
-  'Preparar reporte de inconsistencias semanales',
-  'Ajustar notificacion para severidad alta',
-  'Verificar radicado con resultado consistente',
-  'Cargar normativa de auditoria medica',
+export const tasks = [
+  {
+    id: 'RES-001',
+    title: 'Pertinencia de CUPS por Sexo',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-002',
+    title: 'Procedimiento No Facturado / Fuga de Ingreso',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-003',
+    title: 'CUPS Facturado Sin Mención en HC',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-004',
+    title: 'Cantidad Facturada Excede HC',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-005',
+    title: 'Sin Prefactura Vinculada',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-006',
+    title: 'Sin Detalle en Historia Clínica',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-007',
+    title: 'No Coincidencia de Código CUPS',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-008',
+    title: 'Cantidad Discordante',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-009',
+    title: 'Verificación de Historia Clínica Vacía / Soporte Insuficiente',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-010',
+    title: 'Verificación de Prefactura Vacía / Sin Detalle',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-011',
+    title: 'Verificación e Identificación del Paciente',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
+  {
+    id: 'RES-012',
+    title: 'Cruce Estructural de Soportes vs. Ítem Facturado',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
 ]
-
-const taskDescriptions = [
-  'Validar que el servicio facturado tenga soporte clinico suficiente.',
-  'Revisar la relacion entre diagnostico principal y codigo CUPS.',
-  'Confirmar que la prefactura coincida con los detalles de la atencion.',
-  'Registrar observaciones para seguimiento del equipo auditor.',
-  'Marcar el caso para revision manual antes de cerrar el radicado.',
-]
-
-export const tasks = Array.from({ length: 100 }, () => {
-  const statuses = [
-    'todo',
-    'in progress',
-    'done',
-    'canceled',
-    'backlog',
-  ] as const
-  const labels = ['bug', 'feature', 'documentation'] as const
-  const priorities = ['low', 'medium', 'high'] as const
-
-  return {
-    id: `TASK-${faker.number.int({ min: 1000, max: 9999 })}`,
-    title: faker.helpers.arrayElement(taskTitles),
-    status: faker.helpers.arrayElement(statuses),
-    label: faker.helpers.arrayElement(labels),
-    priority: faker.helpers.arrayElement(priorities),
-    createdAt: faker.date.past(),
-    updatedAt: faker.date.recent(),
-    assignee: faker.person.fullName(),
-    description: faker.helpers.arrayElement(taskDescriptions),
-    dueDate: faker.date.future(),
-  }
-})

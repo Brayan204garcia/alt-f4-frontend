@@ -71,7 +71,7 @@ export function WelcomeModal({
         {/* Cabecera del Memorando */}
         <DialogHeader className='text-start space-y-2 pb-3 border-b border-border'>
           <DialogTitle className='text-lg font-bold text-foreground tracking-tight uppercase'>
-            MEMORANDO DE INDUCCIÓN Y PRESENTACIÓN DEL SISTEMA
+            PARA: EQUIPO SAMSUNG INNOVATION CAMPUS
           </DialogTitle>
         </DialogHeader>
 

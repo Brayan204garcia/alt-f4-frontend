@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedConfiguracionRouteRouteImport } from './routes/_authenticated/configuracion/route'
-import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
+import { Route as AuthenticatedResumenIndexRouteImport } from './routes/_authenticated/resumen/index'
 import { Route as AuthenticatedRadicadosApiIndexRouteImport } from './routes/_authenticated/radicados-api/index'
 import { Route as AuthenticatedMetricasModeloIndexRouteImport } from './routes/_authenticated/metricas-modelo/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
@@ -37,11 +37,12 @@ const AuthenticatedConfiguracionRouteRoute =
     path: '/configuracion',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
+const AuthenticatedResumenIndexRoute =
+  AuthenticatedResumenIndexRouteImport.update({
+    id: '/resumen/',
+    path: '/resumen/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRadicadosApiIndexRoute =
   AuthenticatedRadicadosApiIndexRouteImport.update({
     id: '/radicados-api/',
@@ -101,7 +102,7 @@ export interface FileRoutesByFullPath {
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
-  '/tasks/': typeof AuthenticatedTasksIndexRoute
+  '/resumen/': typeof AuthenticatedResumenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
@@ -113,7 +114,7 @@ export interface FileRoutesByTo {
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/metricas-modelo': typeof AuthenticatedMetricasModeloIndexRoute
   '/radicados-api': typeof AuthenticatedRadicadosApiIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
+  '/resumen': typeof AuthenticatedResumenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -128,7 +129,7 @@ export interface FileRoutesById {
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/metricas-modelo/': typeof AuthenticatedMetricasModeloIndexRoute
   '/_authenticated/radicados-api/': typeof AuthenticatedRadicadosApiIndexRoute
-  '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
+  '/_authenticated/resumen/': typeof AuthenticatedResumenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,7 +144,7 @@ export interface FileRouteTypes {
     | '/help-center/'
     | '/metricas-modelo/'
     | '/radicados-api/'
-    | '/tasks/'
+    | '/resumen/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,7 +156,7 @@ export interface FileRouteTypes {
     | '/help-center'
     | '/metricas-modelo'
     | '/radicados-api'
-    | '/tasks'
+    | '/resumen'
   id:
     | '__root__'
     | '/_authenticated'
@@ -169,7 +170,7 @@ export interface FileRouteTypes {
     | '/_authenticated/help-center/'
     | '/_authenticated/metricas-modelo/'
     | '/_authenticated/radicados-api/'
-    | '/_authenticated/tasks/'
+    | '/_authenticated/resumen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -199,11 +200,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConfiguracionRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/tasks/': {
-      id: '/_authenticated/tasks/'
-      path: '/tasks'
-      fullPath: '/tasks/'
-      preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
+    '/_authenticated/resumen/': {
+      id: '/_authenticated/resumen/'
+      path: '/resumen'
+      fullPath: '/resumen/'
+      preLoaderRoute: typeof AuthenticatedResumenIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/radicados-api/': {
@@ -291,7 +292,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedMetricasModeloIndexRoute: typeof AuthenticatedMetricasModeloIndexRoute
   AuthenticatedRadicadosApiIndexRoute: typeof AuthenticatedRadicadosApiIndexRoute
-  AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
+  AuthenticatedResumenIndexRoute: typeof AuthenticatedResumenIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -305,7 +306,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedMetricasModeloIndexRoute: AuthenticatedMetricasModeloIndexRoute,
   AuthenticatedRadicadosApiIndexRoute: AuthenticatedRadicadosApiIndexRoute,
-  AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
+  AuthenticatedResumenIndexRoute: AuthenticatedResumenIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

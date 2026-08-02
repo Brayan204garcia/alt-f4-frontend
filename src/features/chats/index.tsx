@@ -39,6 +39,8 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { toast } from 'sonner'
 import { AdvertenciaCard, ClinicalDocumentCardV2, InvoiceDocumentCard } from './components/document-cards'
 import { AuditResultModal } from './components/audit-result-modal'
+import { SampleSelectorModal } from './components/sample-selector-modal'
+import { SampleScenario } from './data/sample-scenarios'
 import { API_BASE_URL } from '@/config/api'
 
 type DetectionLevel = 'Alta' | 'Media' | 'Baja'
@@ -304,13 +306,7 @@ const auditRules: AuditRule[] = [
     level: 'Alta',
     probability: 88,
     invoiceTerms: ['pembrolizumab', 'rituximab', 'alto costo', 'infliximab'],
-    clinicalTerms: [
-      'pembrolizumab',
-      'rituximab',
-      'infliximab',
-      'administrado',
-      'orden medica',
-    ],
+    clinicalTerms: ['pembrolizumab', 'rituximab', 'infliximab'],
     missingEvidence:
       'Se encontro medicamento de alto costo en prefactura sin registro equivalente en la historia clinica.',
     recommendation:
@@ -323,19 +319,19 @@ const auditRules: AuditRule[] = [
     level: 'Alta',
     probability: 84,
     invoiceTerms: [
-      'cirugia',
-      'procedimiento',
-      'resonancia',
+      'colecistectomia',
+      'cirugia mayor',
+      'resonancia magnetica',
       'tomografia',
       'endoscopia',
     ],
     clinicalTerms: [
-      'cirugia',
-      'procedimiento',
-      'resonancia',
+      'colecistectomia',
+      'nota quirurgica',
+      'protocolo operatorio',
+      'resonancia magnetica',
       'tomografia',
       'endoscopia',
-      'reporte',
     ],
     missingEvidence:
       'La prefactura registra procedimiento o ayuda diagnostica sin reporte clinico asociado.',
@@ -349,16 +345,16 @@ const auditRules: AuditRule[] = [
     level: 'Media',
     probability: 73,
     invoiceTerms: [
+      'terapia respiratoria x 10',
+      '10 sesiones',
       'terapia respiratoria x 3',
       'terapia respiratoria x 4',
-      'terapia fisica x 3',
-      'terapia fisica x 4',
     ],
     clinicalTerms: [
+      'terapia respiratoria x 10',
+      '10 sesiones',
       'terapia respiratoria x 3',
       'terapia respiratoria x 4',
-      'terapia fisica x 3',
-      'terapia fisica x 4',
     ],
     missingEvidence:
       'La cantidad facturada supera lo que aparece descrito como sesiones soportadas.',
@@ -2256,6 +2252,7 @@ export function Chats() {
   const [analysis, setAnalysis] = useState<AnalysisState>(getAnalysisState)
   const [showHelp, setShowHelp] = useState(false)
   const [showResultModal, setShowResultModal] = useState(false)
+  const [isSampleModalOpen, setIsSampleModalOpen] = useState(false)
   const uploadControllers = useRef<Record<DocumentKind, AbortController | null>>({
     clinical: null,
     invoice: null,
@@ -2588,160 +2585,52 @@ export function Chats() {
   }
 
   function handleLoadSample() {
+    setIsSampleModalOpen(true)
+  }
+
+  function handleSelectScenario(scenario: SampleScenario) {
     abortAllPdfRequests()
     analysisController.current?.abort()
 
-    const clinicalLines = sampleClinicalRecord.split('\n').map((text, index) => ({
+    const clinicalLines = scenario.clinicalRecord.split('\n').map((text, index) => ({
       text,
       variant: index === 0 ? ('title' as const) : undefined,
     }))
-    const invoiceLines = samplePreinvoice.split('\n').map((text, index) => ({
+    const invoiceLines = scenario.preinvoice.split('\n').map((text, index) => ({
       text,
       variant: index === 0 ? ('title' as const) : undefined,
     }))
 
-    setClinicalRecord(sampleClinicalRecord)
-    setPreinvoice(samplePreinvoice)
-    setCaseId('caso-ejemplo-001')
+    setClinicalRecord(scenario.clinicalRecord)
+    setPreinvoice(scenario.preinvoice)
+    setCaseId('')
     setCaseStatus('listo_para_analizar')
     setAnalysis(getAnalysisState())
-    setUploads({
-      clinical: {
-        fileName: 'historia-clinica-ejemplo.pdf',
-        isLoading: false,
-        error: '',
-        message: 'Ejemplo cargado como documento reconstruido.',
-        lines: clinicalLines,
-        clinicalView: {
-          idAtencion: 'ATN-000001',
-          idPaciente: 'PAC-00295',
-          nombrePaciente: 'Paciente ejemplo',
-          documentoPaciente: 'PAC-00295',
-          sexoPaciente: 'M',
-          fechaAtencion: '2026-07-10',
-          tipoAtencion: 'Hospitalización general',
-          diagnosticoPrincipalCie10: 'J189',
-          descripcionDiagnostico: 'Neumonía adquirida en comunidad',
-          medicoTratante: 'MED-037',
-          sede: 'Sede Urgencias',
-          epsAtencion: 'Nueva EPS',
-          tipoDocumento: 'CC',
-          tipoAfiliacion: 'Subsidiado',
-          ciudad: 'Bogotá',
-          codigoCups: '890201',
-          tipoItem: 'consulta',
-          descripcion: 'Consulta de primera vez medicina general',
-          cantidadRealizada: '1',
-          fechaRegistro: '2026-07-10 06:00',
-          soporteClinico: 'SI',
-          profesionalResponsable: 'MED-037',
-          evolucion:
-            'Manejo en hospitalizacion general, oxigeno por canula nasal, ceftriaxona y terapia respiratoria.',
-          observaciones:
-            'Soportes: hemograma, radiografia de torax y valoracion por medicina interna.',
-          procedimientos: [
-            {
-              id: 'DET-1',
-              tipo: 'consulta',
-              cups: '890201',
-              descripcion: 'Consulta de primera vez medicina general',
-              cantidad: '1',
-              soporte: 'SI',
-            },
-          ],
-          camposObligatoriosFaltantes: [],
-          requiereRevisionHumana: 'No',
-          sections: [
-            {
-              title: 'Paciente',
-              fields: [
-                { label: 'Nombre', value: 'Paciente ejemplo' },
-                { label: 'Documento', value: 'PAC-00295' },
-                { label: 'Tipo Documento', value: 'CC' },
-                { label: 'EPS', value: 'Nueva EPS' },
-                { label: 'Régimen', value: 'Subsidiado' },
-              ],
-            },
-            {
-              title: 'Historia clínica',
-              fields: [
-                { label: 'Ingreso', value: '2026-07-10' },
-                { label: 'Egreso', value: '2026-07-12' },
-                {
-                  label: 'Evolución',
-                  value:
-                    'Manejo en hospitalización general, oxígeno por cánula nasal, ceftriaxona y terapia respiratoria.',
-                },
-              ],
-            },
-          ],
-        },
-      },
-      invoice: {
-        fileName: 'prefactura-ejemplo.pdf',
-        isLoading: false,
-        error: '',
-        message: 'Ejemplo cargado como documento reconstruido.',
-        lines: invoiceLines,
-        clinicalView: undefined,
-        invoiceView: {
-          idPrefactura: 'PF-0000001',
-          idAtencion: 'ATN-000001',
-          idPaciente: 'PAC-00295',
-          nombrePaciente: 'Paciente ejemplo',
-          documentoPaciente: 'PAC-00295',
-          tipoDocumento: 'CC',
-          eps: 'Nueva EPS',
-          regimen: 'Subsidiado',
-          fechaFacturacion: '2026-07-12',
-          periodoServicio: '2026-07-10 a 2026-07-12',
-          prestador: 'Equipo: ALT-F4 IA',
-          nitPrestador: 'No reportado',
-          sede: 'Sede Urgencias',
-          ciudad: 'Bogota',
-          contrato: 'No reportado',
-          plan: 'No reportado',
-          autorizacion: 'No reportado',
-          items: [
-            {
-              id: 'DET-1',
-              codigo: '890201',
-              descripcion: 'Consulta de primera vez medicina general',
-              cantidad: '1',
-              valorUnitario: '45000',
-              valorTotal: '45000',
-            },
-            {
-              id: 'DET-2',
-              codigo: 'UCI-001',
-              descripcion: 'Unidad de cuidados intensivos UCI',
-              cantidad: '1',
-              valorUnitario: '1200000',
-              valorTotal: '1200000',
-            },
-          ],
-          subtotal: formatCurrencyValue(1245000),
-          copago: formatCurrencyValue(0),
-          descuento: 'No reportado',
-          impuestos: 'No reportado',
-          total: formatCurrencyValue(1245000),
-          camposObligatoriosFaltantes: ['nit_prestador', 'contrato', 'plan'],
-          requiereRevisionHumana: 'Si',
-          sections: [
-            {
-              title: 'Prefactura',
-              fields: [
-                { label: 'ID prefactura', value: 'PF-0000001' },
-                { label: 'ID atencion', value: 'ATN-000001' },
-                { label: 'Total', value: formatCurrencyValue(1245000) },
-              ],
-            },
-          ],
-        },
-      },
-    })
     setDetections([])
     setHasRunAudit(false)
+    setUploads({
+      clinical: {
+        fileName: scenario.clinicalFileName,
+        isLoading: false,
+        error: '',
+        message: `Ejemplo cargado: ${scenario.title}`,
+        lines: clinicalLines,
+        clinicalView: scenario.clinicalView,
+      },
+      invoice: {
+        fileName: scenario.invoiceFileName,
+        isLoading: false,
+        error: '',
+        message: `Ejemplo cargado: ${scenario.title}`,
+        lines: invoiceLines,
+        clinicalView: undefined,
+        invoiceView: scenario.invoiceView,
+      },
+    })
+    toast.success(`Escenario cargado: ${scenario.title}`, {
+      description: scenario.expectedFindings.summary,
+      duration: 3000,
+    })
   }
 
   function handleClear() {
@@ -3329,6 +3218,12 @@ export function Chats() {
         onOpenChange={setShowResultModal}
         isConsistent={detections.length === 0}
         mlResult={mlResult}
+      />
+
+      <SampleSelectorModal
+        open={isSampleModalOpen}
+        onOpenChange={setIsSampleModalOpen}
+        onSelectScenario={handleSelectScenario}
       />
     </>
   )

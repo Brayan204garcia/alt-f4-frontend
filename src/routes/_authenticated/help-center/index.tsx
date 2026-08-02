@@ -47,20 +47,20 @@ function AboutUs() {
         <section className='space-y-4'>
           <h2 className='text-xl font-bold tracking-tight'>Equipo</h2>
 
-          <div className='grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
+          <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
             {teamMembers.map((member) => (
               <div
                 key={member}
-                className='group flex items-center justify-between gap-4 rounded-xl border border-border/60 bg-card/80 p-3.5 px-4.5 backdrop-blur-xs transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-md dark:bg-card/40'
+                className='group flex min-w-0 items-center justify-between gap-3 rounded-xl border border-border/60 bg-card/80 p-3.5 px-4.5 backdrop-blur-xs transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-md dark:bg-card/40'
               >
-                <span className='text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary'>
+                <span className='min-w-0 truncate text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary'>
                   {member}
                 </span>
 
                 <Button
                   variant='outline'
                   size='sm'
-                  className='h-8 shrink-0 justify-center gap-1.5 border-border/80 px-3 hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] transition-all duration-200 shadow-xs'
+                  className='h-8 shrink-0 justify-center gap-1.5 border-border/80 px-3 transition-all duration-200 shadow-xs hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:text-[#0A66C2]'
                   asChild
                 >
                   <a

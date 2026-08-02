@@ -6,7 +6,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Descripción' />
+      <DataTableColumnHeader column={column} title='Regla de glosa' />
     ),
     meta: {
       className: 'ps-1 w-full',

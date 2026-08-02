@@ -13,6 +13,11 @@ import { API_BASE_URL } from '@/config/api'
 export interface CasosQueryParams {
   page?: number
   page_size?: number
+  search?: string
+  q?: string
+  query?: string
+  id?: string
+  radicado?: string
   es_consistente?: boolean
   severidad?: string
   resultado_estado?: string
@@ -410,6 +415,23 @@ export function getMockPaginatedCasos(
   params: CasosQueryParams = {}
 ): PaginatedCasosResponse {
   let filtered = [...MOCK_CASOS_ITEMS]
+  const searchTerm = sanitizeString(
+    params.search || params.q || params.query || params.id || params.radicado
+  ).toLowerCase()
+
+  if (searchTerm) {
+    filtered = filtered.filter((item) =>
+      [
+        item.id,
+        item.paciente_nombre,
+        item.paciente_documento,
+        item.eps,
+        item.api,
+      ]
+        .map((value) => sanitizeString(value).toLowerCase())
+        .some((value) => value.includes(searchTerm))
+    )
+  }
 
   if (params.es_consistente !== undefined) {
     filtered = filtered.filter(
@@ -957,4 +979,3 @@ export function useCasoDetailQuery(id: string) {
     enabled: Boolean(id),
   })
 }
-

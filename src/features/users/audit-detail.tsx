@@ -76,20 +76,16 @@ export function AuditDetail() {
   const pfView = useMemo(() => {
     if (!caso) return null
     const pf = caso.prefactura_json || {}
+    const pfPaciente = pf.paciente || {}
     const payload = {
       data: {
-        id_prefactura: pf.numero_factura || `FAC-${caso.id}`,
-        id_atencion: caso.id,
-        documento_paciente: caso.paciente_documento,
-        nombre_paciente: caso.paciente_nombre,
-        eps: caso.eps,
-        fecha_facturacion: caso.fecha_atencion,
-        paciente: {
-          nombre_completo: caso.paciente_nombre,
-          documento: caso.paciente_documento,
-          eps: caso.eps,
-          ...pf.paciente,
-        },
+        id_prefactura: pf.numero_factura || pf.id_prefactura || `FAC-${caso.id}`,
+        id_atencion: pf.id_atencion || caso.id,
+        documento_paciente: pf.documento_paciente || pf.documento || pfPaciente.documento || pfPaciente.documento_paciente,
+        nombre_paciente: pf.nombre_paciente || pf.nombre || pfPaciente.nombre_completo || pfPaciente.nombre,
+        eps: pf.eps || pfPaciente.eps || caso.eps,
+        fecha_facturacion: pf.fecha_facturacion || pf.fecha_atencion || caso.fecha_atencion,
+        paciente: pfPaciente,
         prefactura: pf,
         ...pf,
       },
