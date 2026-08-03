@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: 'Juan Zambrano',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/diego-zambrano02/',
   },
 ]
 

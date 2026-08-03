@@ -20,6 +20,7 @@ import { Route as AuthenticatedConfiguracionIndexRouteImport } from './routes/_a
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAuditorIaIndexRouteImport } from './routes/_authenticated/auditor-ia/index'
 import { Route as AuthenticatedRadicadosApiRadicadoRouteImport } from './routes/_authenticated/radicados-api/$radicado'
+import { Route as AuthenticatedConfiguracionDocumentacionRouteImport } from './routes/_authenticated/configuracion/documentacion'
 import { Route as AuthenticatedConfiguracionClaveApiRouteImport } from './routes/_authenticated/configuracion/clave-api'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -84,6 +85,12 @@ const AuthenticatedRadicadosApiRadicadoRoute =
     path: '/radicados-api/$radicado',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedConfiguracionDocumentacionRoute =
+  AuthenticatedConfiguracionDocumentacionRouteImport.update({
+    id: '/documentacion',
+    path: '/documentacion',
+    getParentRoute: () => AuthenticatedConfiguracionRouteRoute,
+  } as any)
 const AuthenticatedConfiguracionClaveApiRoute =
   AuthenticatedConfiguracionClaveApiRouteImport.update({
     id: '/clave-api',
@@ -95,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/configuracion/documentacion': typeof AuthenticatedConfiguracionDocumentacionRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
@@ -107,6 +115,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/configuracion/documentacion': typeof AuthenticatedConfiguracionDocumentacionRoute
   '/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/auditor-ia': typeof AuthenticatedAuditorIaIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
@@ -122,6 +131,7 @@ export interface FileRoutesById {
   '/_authenticated/configuracion': typeof AuthenticatedConfiguracionRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/configuracion/clave-api': typeof AuthenticatedConfiguracionClaveApiRoute
+  '/_authenticated/configuracion/documentacion': typeof AuthenticatedConfiguracionDocumentacionRoute
   '/_authenticated/radicados-api/$radicado': typeof AuthenticatedRadicadosApiRadicadoRoute
   '/_authenticated/auditor-ia/': typeof AuthenticatedAuditorIaIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/configuracion'
     | '/configuracion/clave-api'
+    | '/configuracion/documentacion'
     | '/radicados-api/$radicado'
     | '/auditor-ia/'
     | '/chats/'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/configuracion/clave-api'
+    | '/configuracion/documentacion'
     | '/radicados-api/$radicado'
     | '/auditor-ia'
     | '/chats'
@@ -163,6 +175,7 @@ export interface FileRouteTypes {
     | '/_authenticated/configuracion'
     | '/_authenticated/'
     | '/_authenticated/configuracion/clave-api'
+    | '/_authenticated/configuracion/documentacion'
     | '/_authenticated/radicados-api/$radicado'
     | '/_authenticated/auditor-ia/'
     | '/_authenticated/chats/'
@@ -256,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRadicadosApiRadicadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/configuracion/documentacion': {
+      id: '/_authenticated/configuracion/documentacion'
+      path: '/documentacion'
+      fullPath: '/configuracion/documentacion'
+      preLoaderRoute: typeof AuthenticatedConfiguracionDocumentacionRouteImport
+      parentRoute: typeof AuthenticatedConfiguracionRouteRoute
+    }
     '/_authenticated/configuracion/clave-api': {
       id: '/_authenticated/configuracion/clave-api'
       path: '/clave-api'
@@ -268,6 +288,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedConfiguracionRouteRouteChildren {
   AuthenticatedConfiguracionClaveApiRoute: typeof AuthenticatedConfiguracionClaveApiRoute
+  AuthenticatedConfiguracionDocumentacionRoute: typeof AuthenticatedConfiguracionDocumentacionRoute
   AuthenticatedConfiguracionIndexRoute: typeof AuthenticatedConfiguracionIndexRoute
 }
 
@@ -275,6 +296,8 @@ const AuthenticatedConfiguracionRouteRouteChildren: AuthenticatedConfiguracionRo
   {
     AuthenticatedConfiguracionClaveApiRoute:
       AuthenticatedConfiguracionClaveApiRoute,
+    AuthenticatedConfiguracionDocumentacionRoute:
+      AuthenticatedConfiguracionDocumentacionRoute,
     AuthenticatedConfiguracionIndexRoute: AuthenticatedConfiguracionIndexRoute,
   }
 

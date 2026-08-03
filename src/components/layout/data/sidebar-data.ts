@@ -2,7 +2,7 @@ import {
   ListTodo,
   HelpCircle,
   Users,
-  KeyRound,
+  Settings,
   BrainCircuit,
   Command,
 } from 'lucide-react'
@@ -46,9 +46,9 @@ export const sidebarData: SidebarData = {
       title: 'Otros',
       items: [
         {
-          title: 'Clave API',
-          url: '/configuracion/clave-api',
-          icon: KeyRound,
+          title: 'Configuración',
+          url: '/configuracion',
+          icon: Settings,
         },
         {
           title: 'Equipo',

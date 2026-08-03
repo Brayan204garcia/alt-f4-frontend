@@ -25,6 +25,10 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const [val, setVal] = useState(pathname ?? '/configuracion')
 
   const handleSelect = (e: string) => {
+    if (e.startsWith('http://') || e.startsWith('https://')) {
+      window.location.href = e
+      return
+    }
     setVal(e)
     navigate({ to: e })
   }
@@ -61,22 +65,41 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           )}
           {...props}
         >
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                pathname === item.href
-                  ? 'bg-muted hover:bg-accent'
-                  : 'hover:bg-accent hover:underline',
-                'justify-start'
-              )}
-            >
-              <span className='me-2'>{item.icon}</span>
-              {item.title}
-            </Link>
-          ))}
+          {items.map((item) => {
+            const isExternal =
+              item.href.startsWith('http://') || item.href.startsWith('https://')
+            if (isExternal) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'hover:bg-accent hover:underline justify-start'
+                  )}
+                >
+                  <span className='me-2'>{item.icon}</span>
+                  {item.title}
+                </a>
+              )
+            }
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={cn(
+                  buttonVariants({ variant: 'ghost' }),
+                  pathname === item.href
+                    ? 'bg-muted hover:bg-accent'
+                    : 'hover:bg-accent hover:underline',
+                  'justify-start'
+                )}
+              >
+                <span className='me-2'>{item.icon}</span>
+                {item.title}
+              </Link>
+            )
+          })}
         </nav>
       </ScrollArea>
     </>

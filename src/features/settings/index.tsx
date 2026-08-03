@@ -1,5 +1,5 @@
 import { Outlet } from '@tanstack/react-router'
-import { KeyRound } from 'lucide-react'
+import { KeyRound, BookOpen } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
@@ -13,6 +13,11 @@ const sidebarNavItems = [
     title: 'Clave API',
     href: '/configuracion/clave-api',
     icon: <KeyRound size={18} />,
+  },
+  {
+    title: 'Documentación',
+    href: 'https://api.bryan.lat/redoc#operation/health_health_get',
+    icon: <BookOpen size={18} />,
   },
 ]
 
