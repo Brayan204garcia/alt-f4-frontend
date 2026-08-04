@@ -4,7 +4,6 @@ import {
   BrainCircuit,
   ChevronDown,
   ClipboardCheck,
-  FileSearch,
   ExternalLink,
   FileText,
   HelpCircle,
