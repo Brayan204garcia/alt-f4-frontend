@@ -83,6 +83,13 @@ export const glosaRules = [
     label: 'documentation',
     priority: 'high',
   },
+  {
+    id: 'RES-013',
+    title: 'Código CUPS No Válido / Inexistente',
+    status: 'done',
+    label: 'documentation',
+    priority: 'high',
+  },
 ]
 
 export const tasks = glosaRules

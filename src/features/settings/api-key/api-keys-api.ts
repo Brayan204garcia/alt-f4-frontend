@@ -9,10 +9,10 @@ import type {
   RevokeKeyResponse,
   RotateKeyResponse,
 } from './types'
-import { API_BASE_URL } from '@/config/api'
+import { ALFT4_ADMIN_TOKEN, API_BASE_URL } from '@/config/api'
 
 const ADMIN_PREFIX = `${API_BASE_URL}/api/v1/admin`
-const ADMIN_TOKEN = import.meta.env.VITE_ALFT4_ADMIN_TOKEN ?? ''
+const ADMIN_TOKEN = ALFT4_ADMIN_TOKEN
 
 function adminHeaders() {
   return {

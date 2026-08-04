@@ -22,7 +22,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: 'Andres Suarez',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/andres-suarez-silva?utm_source=share_via&utm_content=profile&utm_medium=member_android',
   },
   {
     name: 'Brayan Garcia',

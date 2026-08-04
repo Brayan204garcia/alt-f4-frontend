@@ -1,3 +1,8 @@
 name = "alt-f4-frontend"
 compatibility_date = "2026-07-21"
 pages_build_output_dir = "dist"
+
+[vars]
+VITE_API_BASE_URL = "https://api.bryan.lat"
+# VITE_ALFT4_ADMIN_TOKEN = "configurar_en_dashboard_de_cloudflare_pages"
+

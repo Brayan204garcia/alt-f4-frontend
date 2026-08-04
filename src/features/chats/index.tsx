@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ClipboardCheck,
   FileSearch,
+  ExternalLink,
   FileText,
   HelpCircle,
   LoaderCircle,
@@ -2571,7 +2572,11 @@ export function Chats() {
   }
 
   function handleLoadSample() {
-    setIsSampleModalOpen(true)
+    window.open(
+      'https://drive.google.com/drive/folders/1sJRcvu-mOfx-VgDT3_UCQYLVFoYOk1MW?usp=sharing',
+      '_blank',
+      'noopener,noreferrer'
+    )
   }
 
   function handleSelectScenario(scenario: SampleScenario) {
@@ -2952,7 +2957,7 @@ export function Chats() {
                 </li>
               </ol>
               <div className='rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-900/40 p-3 text-xs text-blue-800 dark:text-blue-300'>
-                <strong>Tip:</strong> Usa el botón <em>"Cargar ejemplo"</em> para probar el sistema con datos de demostración sin necesidad de subir documentos reales.
+                <strong>Tip:</strong> Usa el botón <em>"Ver ejemplos"</em> para abrir los archivos de demostración y probar el sistema.
               </div>
             </div>
           </DialogContent>
@@ -2974,8 +2979,8 @@ export function Chats() {
                 ¿Cómo usar?
               </Button>
               <Button variant='outline' onClick={handleLoadSample}>
-                <FileSearch className='size-4' />
-                Cargar ejemplo
+                <ExternalLink className='size-4' />
+                Ver ejemplos
               </Button>
               <Button variant='outline' onClick={handleClear}>
                 <RefreshCcw className='size-4' />
@@ -3088,7 +3093,7 @@ export function Chats() {
                         <BrainCircuit />
                         <AlertTitle>Auditoría lista</AlertTitle>
                         <AlertDescription>
-                          Carga ambos PDFs o un ejemplo y presiona <strong>Analizar Caso</strong> para obtener las glosas.
+                          Carga ambos PDFs o consulta <strong>Ver ejemplos</strong> y presiona <strong>Analizar Caso</strong> para obtener las glosas.
                         </AlertDescription>
                       </Alert>
                     </div>
